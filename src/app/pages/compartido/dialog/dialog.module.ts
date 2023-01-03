@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DialogRoutingModule } from './dialog-routing.module';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
   ],
   imports: [
     CommonModule,
-    DialogRoutingModule
+    DialogRoutingModule,
+    TranslateModule
   ]
 })
 export class DialogModule { }
