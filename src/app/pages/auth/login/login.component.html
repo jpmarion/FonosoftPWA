@@ -1,1 +1,34 @@
-<p>login works!</p>
+<mat-grid-list [cols]="3"   >
+    <mat-grid-tile [colspan]="1" >Logo</mat-grid-tile>
+    <mat-grid-tile [colspan]="2">
+        <mat-card>
+            <mat-card-title>{{ 'FORMLOGIN.titulo' | translate }}</mat-card-title>
+            <form [formGroup]="login" (ngSubmit)="onSubmit()" class="form">
+                <mat-card-content>
+                    <div class="contenedor">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{ 'FORMLOGIN.lblUsuario' | translate }}</mat-label>
+                            <input type="text" matInput formControlName="usuario" placeholder="{{ 'FORMLOGIN.inputEmailPlaceholder' | translate }}">
+                            <mat-icon matSuffix>accessibility</mat-icon>
+                            <mat-error *ngIf="usuarioInvalid">{{ getMensajeErrorUsuario() | translate }}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{ 'FORMLOGIN.lblContrasenia' | translate }}</mat-label>
+                            <input [type]="hide ? 'password' : 'text'" matInput formControlName="password">
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                              </button>
+                            <mat-error *ngIf="passwordInvalid">{{ getMensajeErrorPassword() | translate }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions align="start">
+                    <button (click)="onSubmit()" mat-raised-button color="primary">{{ 'FORMLOGIN.btnIniciarSesion' | translate }}</button>
+                </mat-card-actions>
+                <mat-card-footer align="center" >
+                    <button mat-stroked-button>{{ 'FORMLOGIN.btnRegistro' | translate }}</button>
+                </mat-card-footer>
+            </form>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

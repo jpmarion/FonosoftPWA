@@ -1,0 +1,14 @@
+{
+    "FORMLOGIN": {
+        "titulo": "Iniciar sesión",
+        "lblUsuario": "Usuario",
+        "lblContrasenia": "Contraseña",
+        "inputEmailPlaceholder": "Ex. pat@example.com",
+        "btnIniciarSesion": "Iniciar sesión",
+        "errorUsuarioRequired": "Debe ingresar un valor",
+        "errorUsuarioEmail": "Email no valido",
+        "errorPasswordRequired": "Debe ingresar un valor",
+        "errorPasswordMinLength": "La contraseña debe contener a los sumo 8 caracteres",
+        "btnRegistro": "Registrarse"
+    }
+}
