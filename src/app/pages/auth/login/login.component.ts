@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Error } from 'src/app/model/error';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { RequestLogin } from 'src/app/services/auth/request-login.model';
+import { ErrorDialogComponent } from '../../dialog/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +25,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authServices: AuthService,
-    private router: Router    
+    private router: Router,
+    private dialogError: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -50,9 +53,9 @@ export class LoginComponent implements OnInit {
   private MensajeError(error: Error) {
     switch (error.NroError) {
       case 7:
-        // const dialogRef = this.dialog.open(ErrorComponent, {
-        //   data: { titulo: 'Login', mensaje: error.MsgError }
-        // })
+        const dialogRef = this.dialogError.open(ErrorDialogComponent, {
+          data: { titulo: 'Login', mensaje: error.MsgError }
+        })
         break;
       default:
         break;
