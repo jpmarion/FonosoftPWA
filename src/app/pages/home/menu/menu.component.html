@@ -1,0 +1,27 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>personal_injury</mat-icon>
+      <span>Pacientes</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>local_hospital</mat-icon>
+      <span>Médicos</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Disable alerts</span>
+    </button>
+  </mat-menu>
+  <span>Fonosoft</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button>
+    <mat-icon>settings</mat-icon>
+  </button>
+  <button mat-icon-button>
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+</mat-toolbar>
