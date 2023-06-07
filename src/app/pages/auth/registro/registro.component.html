@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>{{ 'FORMREGISTRO.matDialogTitle' | translate }}</h1>
+<mat-card>
+    <div mat-dialog-content>
+        <mat-card-header> {{ 'FORMREGISTRO.matDialogHeader' | translate }} </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="registroForm" class="form">
+                <div class="contenedor">
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{ 'FORMREGISTRO.lblUsuario' | translate }}</mat-label>
+                        <input type="text" matInput formControlName="usuario" id="usuario"
+                            placeholder="{{ 'FORMREGISTRO.inputUsuarioPlaceholder' | translate }}">
+                        <mat-icon matSuffix>accessibility</mat-icon>
+                        <mat-error *ngIf="usuarioInvalid">{{ getMensajeErrorUsuario() | translate }}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{ 'FORMREGISTRO.lblEmail' | translate }}</mat-label>
+                        <input type="text" matInput formControlName="email" id="email"
+                            placeholder="{{ 'FORMREGISTRO.inpEmailPlaceHolder' | translate }}">
+                        <mat-icon matSuffix>accessibility</mat-icon>
+                        <mat-error *ngIf="emailInvalid">{{ getMensajeErrorEmail() | translate }}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{ 'FORMREGISTRO.lblContrasenia' | translate }}</mat-label>
+                        <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" id="password">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="passwordInvalid">{{ getMensajeErrorPassword() | translate }}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div mat-dialog-actions>
+                    <button mat-raised-button color="primary" (click)="registro()" [class.spinner]="estadoBoton"
+                        [disabled]="estadoBoton">{{ 'FORMREGISTRO.btnRegistro' |
+                        translate }}</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </div>
+</mat-card>
