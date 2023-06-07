@@ -9,6 +9,41 @@
         "errorUsuarioEmail": "Email no valido",
         "errorPasswordRequired": "Debe ingresar un valor",
         "errorPasswordMinLength": "La contraseña debe contener a los sumo 8 caracteres",
-        "btnRegistro": "Registrarse"
+        "btnRegistro": "Registrarse",
+        "TituloErrorDialog": "Iniciar sesión"
+    },
+    "FORMCONFIGURACION": {
+        "matDialogTitle": "Configuración",
+        "matDialogHeaderPassword": "Contraseña",
+        "matLabelIngPass": "Ingrese su contraseña",
+        "TituloErrorDialog": "Modifcar contraseña",
+        "btnModificar": "Modificar",
+        "TituloOkDialog": "Modifcar contraseña",
+        "MsjOkDialog": "Contraseña modificada con exito"
+    },
+    "FORMREGISTRO": {
+        "matDialogTitle": "Registro",
+        "matDialogHeader": "Registrarse",
+        "lblUsuario": "Usuario",
+        "inputUsuarioPlaceholder": "Usuario",
+        "lblEmail": "Email",
+        "inpEmailPlaceHolder": "fonosoft@fonosoft.com",
+        "lblContrasenia": "Contraseña",
+        "btnRegistro": "Registrarse",
+        "errorPasswordRequired": "Debe ingresar un valor",
+        "errorPasswordMinLength": "La contraseña debe contener a los sumo 8 caracteres",
+        "errorEmaildRequired": "Debe ingresar un valor",
+        "errorEmail": "Formato incorrecto",
+        "TituloOkDialog": "Registrar usuario",
+        "MsjOkDialog": "Usuario registrado",
+        "TituloErrorDialog": "Registro"
+    },
+    "FORMSINODIALOG": {
+        "si": "Si",
+        "no": "No"
+    },
+    "NAV": {
+        "tituloSalirDialog": "Salir Fonosoft",
+        "msjSalirDialog": "¿Desea salir de la aplicación?"
     }
 }
