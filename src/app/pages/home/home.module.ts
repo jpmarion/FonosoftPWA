@@ -10,11 +10,25 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { ConfigDialogComponent } from './config-dialog/config-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { TranslateModule } from '@ngx-translate/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PacienteComponent } from './paciente/paciente.component';
+import { MatTableModule } from '@angular/material/table';
+import { MedicoComponent } from './medico/medico.component';
+
 
 @NgModule({
   declarations: [
     HomeComponent,
-    MenuComponent
+    MenuComponent,
+    ConfigDialogComponent,
+    PacienteComponent,
+    MedicoComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +38,15 @@ import { MatListModule } from '@angular/material/list';
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule,
+    MatCardModule,
+    TranslateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatTableModule
   ]
 })
 export class HomeModule { }
