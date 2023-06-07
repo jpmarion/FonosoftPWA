@@ -3,11 +3,11 @@
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>
+    <button mat-menu-item (click)="irPacientes()">
       <mat-icon>personal_injury</mat-icon>
       <span>Pacientes</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="irMedicos()">
       <mat-icon>local_hospital</mat-icon>
       <span>Médicos</span>
     </button>
@@ -18,10 +18,10 @@
   </mat-menu>
   <span>Fonosoft</span>
   <span class="example-spacer"></span>
-  <button mat-icon-button>
+  <button mat-icon-button (click)="abrirConfigDialog()">
     <mat-icon>settings</mat-icon>
   </button>
-  <button mat-icon-button>
-    <mat-icon>exit_to_app</mat-icon>
+  <button  mat-icon-button (click)="logOut()">
+    <mat-icon >exit_to_app</mat-icon>
   </button>
 </mat-toolbar>
