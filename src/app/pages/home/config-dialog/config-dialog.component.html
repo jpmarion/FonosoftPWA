@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>{{ 'FORMCONFIGURACION.matDialogTitle' | translate }}</h1>
+<mat-card>
+  <div mat-dialog-content>
+    <mat-card-header> {{ 'FORMCONFIGURACION.matDialogHeaderPassword' | translate }} </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="cambiarPass" class="form">
+        <mat-form-field appearance="fill">
+          <mat-label>{{ 'FORMCONFIGURACION.matLabelIngPass' | translate }}</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="passwordInvalid">{{ getMensajeErrorPassword() | translate }}</mat-error>
+        </mat-form-field>
+        <div mat-dialog-actions>
+          <button mat-raised-button color="primary" (click)="cambiarContrasenia()">{{ 'FORMCONFIGURACION.btnModificar' | translate }}</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </div>
+</mat-card>
