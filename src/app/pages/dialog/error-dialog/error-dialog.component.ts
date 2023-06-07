@@ -20,5 +20,4 @@ export class ErrorDialogComponent implements OnInit {
   ok(): void {
     this.dialogRef.close();
   }
-
 }

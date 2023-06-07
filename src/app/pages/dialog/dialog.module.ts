@@ -6,10 +6,14 @@ import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { OkDialogComponent } from './ok-dialog/ok-dialog.component';
+import { SiNoDialogComponent } from './si-no-dialog/si-no-dialog.component';
 
 @NgModule({
   declarations: [
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    OkDialogComponent,
+    SiNoDialogComponent
   ],
   imports: [
     CommonModule,
