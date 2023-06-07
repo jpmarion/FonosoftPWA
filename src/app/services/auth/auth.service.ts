@@ -6,6 +6,8 @@ import { Usuario } from 'src/app/model/usuario.model';
 import { environment } from 'src/environments/environment';
 import { RequestLogin } from './request-login.model';
 import { Error } from 'src/app/model/error';
+import { RequestCambiarContrasenia } from './request-cambiar-contrasenia';
+import { RequestRegistro } from '../paciente/request-registro';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,8 +22,10 @@ const httpOptions = {
 export class AuthService {
 
   private currentUser?: Usuario;
-  private readonly apiUrl = environment.apiUrl;
+  private readonly apiUrl = environment.apiUrlAuth;
   private loginUrl = this.apiUrl + '/api/Login/login';
+  private cambiarContraseniaUrl = this.apiUrl + '/api/Login/cambiarcontraseniausuario';
+  private registrarUrl = this.apiUrl + '/api/Login/registrar';
 
   constructor(
     private http: HttpClient,
@@ -37,9 +41,43 @@ export class AuthService {
     return this.http.post(this.loginUrl, request, httpOptions)
       .pipe(
         map((response: Usuario) => {
+          this.currentUser = response;
+          return response;
+        }),
+        catchError(error =>
+          this.handleError(error)
+        ));
+  }
+
+  CambiarContraseniaUsuairo(requestCambiarContrasenia: RequestCambiarContrasenia): Observable<any> {
+    const request = JSON.stringify({
+      id: requestCambiarContrasenia.id,
+      password: requestCambiarContrasenia.password
+    });
+
+    return this.http.post(this.cambiarContraseniaUrl, request, httpOptions)
+      .pipe(
+        map((response: any) => {
           return response;
         }),
         catchError(this.handleError
+        ));
+  }
+
+  Registrar(requestRegistro: RequestRegistro): Observable<any> {
+    const request = JSON.stringify({
+      nombreUsuario: requestRegistro.usuario,
+      email: requestRegistro.email,
+      password: requestRegistro.password
+    });
+
+    return this.http.post(this.registrarUrl, request, httpOptions)
+      .pipe(
+        map((response: any) => {
+          return response;
+        }),
+        catchError(error =>
+          this.handleError(error)
         ));
   }
 
@@ -50,9 +88,15 @@ export class AuthService {
         errorModel.NroError = error.error.nroError;
         errorModel.MsgError = error.error.msgError;
         return throwError(() => errorModel);
-      // return throwError(() => error.error);
       default:
         return `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
+  }
+
+  estaAutenticado(): boolean {
+    if (this.currentUser?.token) {
+      return true;
+    }
+    return false;
   }
 }
