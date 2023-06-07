@@ -10,14 +10,15 @@
                     <div class="contenedor">
                         <mat-form-field appearance="fill">
                             <mat-label>{{ 'FORMLOGIN.lblUsuario' | translate }}</mat-label>
-                            <input type="text" matInput formControlName="usuario"
+                            <input type="text" matInput formControlName="usuario" id="usuario"
                                 placeholder="{{ 'FORMLOGIN.inputEmailPlaceholder' | translate }}">
                             <mat-icon matSuffix>accessibility</mat-icon>
                             <mat-error *ngIf="usuarioInvalid">{{ getMensajeErrorUsuario() | translate }}</mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="fill">
                             <mat-label>{{ 'FORMLOGIN.lblContrasenia' | translate }}</mat-label>
-                            <input [type]="hide ? 'password' : 'text'" matInput formControlName="password">
+                            <input [type]="hide ? 'password' : 'text'" matInput formControlName="password"
+                                id="password">
                             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                                 [attr.aria-pressed]="hide">
                                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -26,9 +27,9 @@
                         </mat-form-field>
                     </div>
                 </mat-card-content>
-                <mat-card-actions align="end">
-                    <button (click)="onSubmit()" mat-raised-button color="primary">{{
-                        'FORMLOGIN.btnIniciarSesion' |
+                <mat-card-actions>
+                    <button (click)="Registrarse()" mat-button>{{ 'FORMLOGIN.btnRegistro' | translate }}</button>
+                    <button (click)="onSubmit()" mat-raised-button color="primary">{{ 'FORMLOGIN.btnIniciarSesion' |
                         translate }}</button>
                 </mat-card-actions>
             </form>

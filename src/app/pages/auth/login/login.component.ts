@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { Error } from 'src/app/model/error';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { RequestLogin } from 'src/app/services/auth/request-login.model';
 import { ErrorDialogComponent } from '../../dialog/error-dialog/error-dialog.component';
+import { RegistroComponent } from '../registro/registro.component';
 
 @Component({
   selector: 'app-login',
@@ -14,9 +15,9 @@ import { ErrorDialogComponent } from '../../dialog/error-dialog/error-dialog.com
 })
 export class LoginComponent implements OnInit {
   hide = true;
-  error: any;
-  errorLogin: boolean = false;
-  requestLogin = new RequestLogin();
+  private error: any;
+  private errorLogin: boolean = false;
+  private requestLogin = new RequestLogin();
 
   login = new FormGroup({
     usuario: new FormControl('', [Validators.required]),
@@ -24,9 +25,11 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(
+    private dialog: MatDialog,
     private authServices: AuthService,
     private router: Router,
-    private dialogError: MatDialog
+    private dialogError: MatDialog,
+    private renderer: Renderer2
   ) { }
 
   ngOnInit(): void {
@@ -39,7 +42,11 @@ export class LoginComponent implements OnInit {
 
     this.authServices.onLogin(this.requestLogin)
       .subscribe({
-        next: (resultado) => this.router.navigate(['home']),
+        next: (resultado) => {
+          localStorage.setItem('idUsuario', resultado['id']);
+          localStorage.setItem('token', resultado['token'])
+          this.router.navigate(['home'])
+        },
         error: (e) => {
           if (e instanceof Error) {
             this.MensajeError(e);
@@ -52,15 +59,34 @@ export class LoginComponent implements OnInit {
 
   private MensajeError(error: Error) {
     switch (error.NroError) {
+      case 2:
+      case 3:
+        this.MostrarMsj(error.MsgError?.toString()!, '#usuario');
+        break;
+      case 6:
+        this.MostrarMsj(error.MsgError?.toString()!, '#password');
+        break;
       case 7:
-        const dialogRef = this.dialogError.open(ErrorDialogComponent, {
-          data: { titulo: 'Login', mensaje: error.MsgError }
-        })
+        this.MostrarMsj(error.MsgError?.toString()!, '');
         break;
       default:
         break;
     }
+  }
 
+  private MostrarMsj(msj: string, input: string): void {
+    const dialogRef = this.dialogError.open(ErrorDialogComponent, {
+      data: { titulo: 'FORMLOGIN.TituloErrorDialog', mensaje: msj }
+    })
+      .afterClosed()
+      .subscribe(result => {
+        var elem = this.renderer.selectRootElement(input);
+        elem.focus();
+      });
+  }
+
+  Registrarse() {
+    const dialogRef = this.dialog.open(RegistroComponent);
   }
 
   get usuarioInvalid() {
