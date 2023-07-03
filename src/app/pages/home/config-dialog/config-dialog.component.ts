@@ -54,7 +54,7 @@ export class ConfigDialogComponent implements OnInit {
 
   private MensajeError(error: Error) {
     switch (error.NroError) {
-      case 7:
+      case "ErrorAuth7":
         const dialogRef = this.dialogError.open(ErrorDialogComponent, {
           data: { titulo: 'FORMCONFIGURACION.TituloErrorDialog', mensaje: error.MsgError }
         })

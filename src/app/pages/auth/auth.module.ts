@@ -14,12 +14,14 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RegistroComponent } from './registro/registro.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmarRegistroComponent } from './confirmar-registro/confirmar-registro.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
+    ConfirmarRegistroComponent
   ],
   imports: [
     CommonModule,

@@ -3,7 +3,7 @@
         "titulo": "Iniciar sesión",
         "lblUsuario": "Usuario",
         "lblContrasenia": "Contraseña",
-        "inputEmailPlaceholder": "Ex. pat@example.com",
+        "inputEmailPlaceholder": "usuario",
         "btnIniciarSesion": "Iniciar sesión",
         "errorUsuarioRequired": "Debe ingresar un valor",
         "errorUsuarioEmail": "Email no valido",
@@ -28,6 +28,8 @@
         "inputUsuarioPlaceholder": "Usuario",
         "lblEmail": "Email",
         "inpEmailPlaceHolder": "fonosoft@fonosoft.com",
+        "lblConfirmarEmail": "Repetir email",
+        "inpConfirmarEmailPlaceHolder": "fonosoft@fonosoft.com",
         "lblContrasenia": "Contraseña",
         "btnRegistro": "Registrarse",
         "errorPasswordRequired": "Debe ingresar un valor",
@@ -36,7 +38,8 @@
         "errorEmail": "Formato incorrecto",
         "TituloOkDialog": "Registrar usuario",
         "MsjOkDialog": "Usuario registrado",
-        "TituloErrorDialog": "Registro"
+        "TituloErrorDialog": "Registro",
+        "errorEmailMatching": "No conciden los email"
     },
     "FORMSINODIALOG": {
         "si": "Si",

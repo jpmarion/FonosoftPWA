@@ -1,4 +1,4 @@
 export class Error {
-    public NroError?: number;
+    public NroError?: string;
     public MsgError?: string;
 }

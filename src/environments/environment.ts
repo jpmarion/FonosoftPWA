@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrlAuth:'https://localhost:44310'
+  apiUrlAuth: 'https://localhost:44310',
+  apiUrlFonosoft: 'http://localhost:4200/'
 };
 
 /*

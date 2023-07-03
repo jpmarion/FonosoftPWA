@@ -59,16 +59,21 @@ export class LoginComponent implements OnInit {
 
   private MensajeError(error: Error) {
     switch (error.NroError) {
-      case 2:
-      case 3:
+      case "ErrorAuth1":
+      case "ErrorAuth2":
+      case "ErrorAuth3":
+      case "ErrorAuth4":
+      case "ErrorAuth10":
         this.MostrarMsj(error.MsgError?.toString()!, '#usuario');
         break;
-      case 6:
+      case "ErrorAuth5":
+      case "ErrorAuth6":
+      case "ErrorAuth7":
         this.MostrarMsj(error.MsgError?.toString()!, '#password');
         break;
-      case 7:
-        this.MostrarMsj(error.MsgError?.toString()!, '');
-        break;
+      // case 7:
+      //   this.MostrarMsj(error.MsgError?.toString()!, '');
+      //   break;
       default:
         break;
     }
@@ -87,6 +92,10 @@ export class LoginComponent implements OnInit {
 
   Registrarse() {
     const dialogRef = this.dialog.open(RegistroComponent);
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        console.log(result);
+      });
   }
 
   get usuarioInvalid() {

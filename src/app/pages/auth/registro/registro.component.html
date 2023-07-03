@@ -20,8 +20,15 @@
                         <mat-error *ngIf="emailInvalid">{{ getMensajeErrorEmail() | translate }}</mat-error>
                     </mat-form-field>
                     <mat-form-field appearance="fill">
+                        <mat-label>{{ 'FORMREGISTRO.lblConfirmarEmail' | translate }}</mat-label>
+                        <input type="text" matInput formControlName="confirmarEmail" id="confirmarEmail"
+                            placeholder="{{ 'FORMREGISTRO.inpConfirmarEmailPlaceHolder' | translate }}">
+                        <mat-icon matSuffix>accessibility</mat-icon>
+                        <mat-error *ngIf="confirmarEmailInvalid">{{ getMensajeErrorConfirmarEmail() | translate }}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
                         <mat-label>{{ 'FORMREGISTRO.lblContrasenia' | translate }}</mat-label>
-                        <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" id="password">
+                        <input [type]="hide ? 'password' : 'text'" matInput formControlName="passwordreg" id="passwordreg">
                         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                             [attr.aria-pressed]="hide">
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>

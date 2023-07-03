@@ -26,6 +26,7 @@ export class AuthService {
   private loginUrl = this.apiUrl + '/api/Login/login';
   private cambiarContraseniaUrl = this.apiUrl + '/api/Login/cambiarcontraseniausuario';
   private registrarUrl = this.apiUrl + '/api/Login/registrar';
+  private confirmarUsuarioUrl = this.apiUrl + '/api/Login/confirmarusuario/?nombreUsuario=';
 
   constructor(
     private http: HttpClient,
@@ -68,10 +69,23 @@ export class AuthService {
     const request = JSON.stringify({
       nombreUsuario: requestRegistro.usuario,
       email: requestRegistro.email,
-      password: requestRegistro.password
+      password: requestRegistro.password,
+      BodyConfirmarRegistro: requestRegistro.bodyConfirmarRegistro
     });
 
     return this.http.post(this.registrarUrl, request, httpOptions)
+      .pipe(
+        map((response: any) => {
+          return response;
+        }),
+        catchError(error =>
+          this.handleError(error)
+        ));
+  }
+
+  ConfirmarRegistro(nombreUsuario: string): Observable<any> {
+    const body: string = '';
+    return this.http.put(this.confirmarUsuarioUrl + nombreUsuario, body)
       .pipe(
         map((response: any) => {
           return response;
