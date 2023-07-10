@@ -24,6 +24,10 @@ export class MenuComponent {
     this.router.navigate(['home', { outlets: { homecomponent: ['medico'] } }]);
   }
 
+  irTipoDocumento(): void {
+    this.router.navigate(['home', { outlets: { homecomponent: ['tipodocumento'] } }]);
+  }
+
   abrirConfigDialog(): void {
     const dialogRef = this.dialog.open(ConfigDialogComponent);
   }

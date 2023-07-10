@@ -11,10 +11,13 @@
       <mat-icon>local_hospital</mat-icon>
       <span>Médicos</span>
     </button>
-    <button mat-menu-item>
-      <mat-icon>notifications_off</mat-icon>
-      <span>Disable alerts</span>
+    <button mat-menu-item [matMenuTriggerFor]="datos">
+      <mat-icon>data_usage</mat-icon>
+      <span>Datos</span>
     </button>
+  </mat-menu>
+  <mat-menu #datos="matMenu">
+    <button mat-menu-item (click)="irTipoDocumento()">Tipo Documento</button>
   </mat-menu>
   <span>Fonosoft</span>
   <span class="example-spacer"></span>

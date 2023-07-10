@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrlAuth: 'https://localhost:44310',
+  apiUrlEntidades: 'https://localhost:7055',
   apiUrlFonosoft: 'http://localhost:4200/'
 };
 
