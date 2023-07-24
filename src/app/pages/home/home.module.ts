@@ -20,7 +20,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PacienteComponent } from './paciente/paciente.component';
 import { MatTableModule } from '@angular/material/table';
 import { MedicoComponent } from './medico/medico.component';
-
+import { TipodocumentoComponent } from './tipodocumento/tipodocumento.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { AbmTipodocumentoComponent } from './tipodocumento/abm-tipodocumento/abm-tipodocumento.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { MedicoComponent } from './medico/medico.component';
     MenuComponent,
     ConfigDialogComponent,
     PacienteComponent,
-    MedicoComponent
+    MedicoComponent,
+    TipodocumentoComponent,
+    AbmTipodocumentoComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +50,8 @@ import { MedicoComponent } from './medico/medico.component';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule
   ]
 })
 export class HomeModule { }

@@ -4,6 +4,7 @@ import { AuthGuard } from '../auth/guards/auth.guard';
 import { HomeComponent } from './home.component';
 import { MedicoComponent } from './medico/medico.component';
 import { PacienteComponent } from './paciente/paciente.component';
+import { TipodocumentoComponent } from './tipodocumento/tipodocumento.component';
 
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'paciente', component: PacienteComponent, outlet: 'homecomponent' },
-      { path: 'medico', component: MedicoComponent, outlet: 'homecomponent' }
+      { path: 'medico', component: MedicoComponent, outlet: 'homecomponent' },
+      { path: 'tipodocumento', component: TipodocumentoComponent, outlet: 'homecomponent' }
     ]
   }
 ];
