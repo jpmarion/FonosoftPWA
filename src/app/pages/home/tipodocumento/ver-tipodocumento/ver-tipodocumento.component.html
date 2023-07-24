@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{ 'FORMADDTIPODOCUMENTO.matDialogTitle' | translate }}</h1>
+<mat-card>
+  <div mat-dialog-content>
+    <mat-card-header> {{ 'FORMADDTIPODOCUMENTO.matDialogHeader' | translate }} </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="verTipoDocumento">
+        <mat-form-field appearance="fill" class="full-width">
+          <input matInput formControlName="descripcionVerTipoDocumento" id="descripcionVerTipoDocumento" readonly="readonly">
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+  </div>
+</mat-card>
