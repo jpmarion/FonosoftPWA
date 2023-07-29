@@ -1,0 +1,19 @@
+<h1 mat-dialog-title> {{ _Titulo | translate }}</h1>
+<mat-card>
+    <div mat-dialog-content>
+        <mat-card-header> {{ 'FORMTIPODOCUMENTO.matDialogHeader' | translate }} </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="_tipoDocumentoForm">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>{{ 'FORMTIPODOCUMENTO.matLabelIngPass' | translate }}</mat-label>
+                    <input matInput formControlName="descripcionTipoDocumentoForm" id="descripcionTipoDocumentoForm">
+                    <mat-error *ngIf="EsDescripcionInvalid()">{{ MensajeErrorDescripcion() | translate }}</mat-error>
+                </mat-form-field>
+                <div mat-dialog-actions>
+                    <button mat-raised-button color="primary" (click)="Ejecutar()">{{ _boton |
+                        translate }}</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </div>
+</mat-card>

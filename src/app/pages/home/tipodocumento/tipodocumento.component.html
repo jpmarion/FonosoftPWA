@@ -6,16 +6,21 @@
       <mat-icon>add</mat-icon>
     </button>
   </mat-form-field>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8 demo-table">
 
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by position"> No. </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="tipodocumento">
-      <th mat-header-cell *matHeaderCellDef>Tipo Documento</th>
+    <ng-container matColumnDef="descripcion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by descripcion">Tipo Documento</th>
       <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by estado" >Estado</th>
+      <td mat-cell *matCellDef="let element" > {{element.estaHabilitado==true?'Habiltado':'Deshabilitado'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="action">
@@ -28,6 +33,8 @@
             (click)="abrirVerTipoDocumento(element.id)"><mat-icon>preview</mat-icon></button>
           <button mat-icon-button color="accent"
             (click)="abrirModificarTipoDocumento(element.id)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button color="basic"
+            (click)="abrirCambiarEstadoTipoDocumento(element.id)"><mat-icon>autorenew</mat-icon></button>
         </td>
       <tr>
     </ng-container>

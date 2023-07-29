@@ -48,5 +48,25 @@
     "NAV": {
         "tituloSalirDialog": "Salir Fonosoft",
         "msjSalirDialog": "¿Desea salir de la aplicación?"
+    },
+    "FORMTIPODOCUMENTO": {
+        "matDialogTitleAlta": "Agregar Tipo Documento",
+        "matDialogTitleVer": "Consultar Tipo Documento",
+        "matDialogTitleModificar": "Modificar Tipo Documento",
+        "matDialogTitleBaja": "Cambiar Estado Tipo Documento",
+        "matDialogHeader": "Tipo Documento",
+        "matLabelIngPass": "Tipo de Documento",
+        "errorDescripcionRequired": "Debe ingresar un valor",
+        "ErrorDescripcionMaxLength": "La descripción no puede superar los 100 carácteres",
+        "btnAgregar": "Agregar",
+        "btnModificar": "Modificar",
+        "btnBaja": "Cambiar estado",
+        "TituloErrorDialog": "Agregar Tipo de Documento",
+        "TituloOkDialogAlta": "Agregar Tipo Documento",
+        "MsjOkDialogAlta": "Tipo Documento creado con exito",
+        "TituloOkDialogModificar": "Modifcar Tipo Documento",
+        "MsjOkDialogModificar": "Tipo Documento modificado con exito",
+        "TituloOkDialogCambiarEstado": "Cambiar Estado Tipo Documento",
+        "MsjOkDialogCambiarEstado": "Tipo Documento cambiabo"
     }
 }

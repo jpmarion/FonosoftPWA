@@ -1,4 +1,5 @@
 export class Tipodocumento {
-    public Id?: number;
-    public Descripcion?: string;
+    public id?: number;
+    public descripcion?: string;
+    public estaHabilitado?: boolean;
 }

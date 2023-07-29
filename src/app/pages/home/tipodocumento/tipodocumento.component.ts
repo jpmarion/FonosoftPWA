@@ -5,7 +5,16 @@ import { Tipodocumento } from 'src/app/model/tipodocumento';
 import { TipodocumentoService } from 'src/app/services/tipodocumento/tipodocumento.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AbmTipodocumentoComponent, TipoABM } from './abm-tipodocumento/abm-tipodocumento.component';
+import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { VerTipoDocumentoComponent } from './ver-tipo-documento/ver-tipo-documento.component';
+import { ModificarTipoDocumentoComponent } from './modificar-tipo-documento/modificar-tipo-documento.component';
+import { CambiarEstadoTipoDocumentoComponent } from './cambiar-estado-tipo-documento/cambiar-estado-tipo-documento.component';
+import { AltaTipoDocumentoComponent } from './alta-tipo-documento/alta-tipo-documento.component';
+
+export interface DialogData {
+  idTipoDocumento: number;
+}
 
 @Component({
   selector: 'app-tipodocumento',
@@ -13,7 +22,7 @@ import { AbmTipodocumentoComponent, TipoABM } from './abm-tipodocumento/abm-tipo
   styleUrls: ['./tipodocumento.component.scss'],
 })
 export class TipodocumentoComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['position', 'tipodocumento', 'action'];
+  displayedColumns: string[] = ['id', 'descripcion', 'estado', 'action'];
   dataSource = new MatTableDataSource<Tipodocumento[]>;
 
   selection = new SelectionModel<Tipodocumento>(true, []);
@@ -24,9 +33,14 @@ export class TipodocumentoComponent implements OnInit, AfterViewInit {
     private tipoDocumentoServices: TipodocumentoService,
     private dialogAltaTipoDocumento: MatDialog,
     private dialogVerTipoDocumento: MatDialog,
-    private dialogModificarTipoDocumento: MatDialog
+    private dialogModificarTipoDocumento: MatDialog,
+    private _liveAnnouncer: LiveAnnouncer
   ) { }
+
+  @ViewChild(MatSort) sort!: MatSort;
+
   ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator!;
   }
 
@@ -40,12 +54,8 @@ export class TipodocumentoComponent implements OnInit, AfterViewInit {
   }
 
   abrirAltaTipoDocumento(): void {
-    const dialogRef = this.dialogAltaTipoDocumento.open(AbmTipodocumentoComponent, {
+    const dialogRef = this.dialogAltaTipoDocumento.open(AltaTipoDocumentoComponent, {
       width: '30%',
-      data: {
-        tipoAbm: TipoABM.ALTA,
-        idTipoDocumento: 0
-      }
     }).afterClosed().subscribe(result => {
       this.dataSource.data = [];
       this.cargarTiposDocumentos();
@@ -53,20 +63,30 @@ export class TipodocumentoComponent implements OnInit, AfterViewInit {
   }
 
   abrirVerTipoDocumento(idTipoDocumento: number): void {
-    const dialogRef = this.dialogVerTipoDocumento.open(AbmTipodocumentoComponent, {
+    const dialogRef = this.dialogVerTipoDocumento.open(VerTipoDocumentoComponent, {
       width: '30%',
       data: {
-        tipoAbm: TipoABM.VER,
         idTipoDocumento: idTipoDocumento
       }
     });
   }
 
   abrirModificarTipoDocumento(idTipoDocumento: number): void {
-    const dialogRef = this.dialogModificarTipoDocumento.open(AbmTipodocumentoComponent, {
+    const dialogRef = this.dialogModificarTipoDocumento.open(ModificarTipoDocumentoComponent, {
       width: '30%',
       data: {
-        tipoAbm: TipoABM.MODIFICAR,
+        idTipoDocumento: idTipoDocumento
+      }
+    }).afterClosed().subscribe(result => {
+      this.dataSource.data = [];
+      this.cargarTiposDocumentos();
+    });
+  }
+
+  abrirCambiarEstadoTipoDocumento(idTipoDocumento: number): void {
+    const dialogRef = this.dialogModificarTipoDocumento.open(CambiarEstadoTipoDocumentoComponent, {
+      width: '30%',
+      data: {
         idTipoDocumento: idTipoDocumento
       }
     }).afterClosed().subscribe(result => {
@@ -79,6 +99,14 @@ export class TipodocumentoComponent implements OnInit, AfterViewInit {
     this.tipoDocumentoServices.BuscarTodosLosTipoDocumento()
       .subscribe((res) => {
         this.dataSource.data = res;
-      });
+      })
+  }
+
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 }
