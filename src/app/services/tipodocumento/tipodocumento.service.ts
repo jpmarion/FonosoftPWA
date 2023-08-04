@@ -83,11 +83,11 @@ export class TipodocumentoService {
     //       this.handleError(error)
     //     )
     //   );
-    return this.http.get<ITipoDocumento>(this.tipoDocumentoUrl+'/'+idTipoDocumento)
-    .pipe(
-      catchError(error=>
-        this.handleError(error))
-    );
+    return this.http.get<ITipoDocumento>(this.tipoDocumentoUrl + '/' + idTipoDocumento)
+      .pipe(
+        catchError(error =>
+          this.handleError(error))
+      );
   }
 
   DeshabilitarTipoDocumento(idTipoDocumento: number): Observable<any> {

@@ -68,5 +68,26 @@
         "MsjOkDialogModificar": "Tipo Documento modificado con exito",
         "TituloOkDialogCambiarEstado": "Cambiar Estado Tipo Documento",
         "MsjOkDialogCambiarEstado": "Tipo Documento cambiabo"
+    },
+    "FORMOBRASOCIAL": {
+        "matDialogTitleAlta": "Agregar Obra Social",
+        "matDialogTitleVer": "Consultar Obra Social",
+        "matDialogTitleModificar": "Modificar Obra Social",
+        "matDialogTitleBaja": "Cambiar Estado Obra Social",
+        "matDialogHeader": "Obra Social",
+        "matLabelIngPass": "Obra Social",
+        "errorDescripcionRequired": "Debe ingresar un valor",
+        "ErrorDescripcionMaxLength": "La descripción no puede superar los 200 carácteres",
+        "btnAgregar": "Agregar",
+        "btnModificar": "Modificar",
+        "btnCambiarEstado": "Cambiar estado",        
+        "btnCerrar": "Cerrar",
+        "TituloErrorDialog": "Agregar Obra Social",
+        "TituloOkDialogAlta": "Agregar Obra Social",
+        "MsjOkDialogAlta": "Obra Social creado con exito",
+        "TituloOkDialogModificar": "Modifcar Obra Social",
+        "MsjOkDialogModificar": "Obra Social modificado con exito",
+        "TituloOkDialogCambiarEstado": "Cambiar Estado Obra Social",
+        "MsjOkDialogCambiarEstado": "Obra Social cambiabo"
     }
 }

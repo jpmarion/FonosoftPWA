@@ -22,7 +22,17 @@ import { MatTableModule } from '@angular/material/table';
 import { MedicoComponent } from './medico/medico.component';
 import { TipodocumentoComponent } from './tipodocumento/tipodocumento.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { AbmTipodocumentoComponent } from './tipodocumento/abm-tipodocumento/abm-tipodocumento.component';
+import { MatSortModule } from '@angular/material/sort';
+import { BrowserModule } from '@angular/platform-browser';
+import { VerTipoDocumentoComponent } from './tipodocumento/ver-tipo-documento/ver-tipo-documento.component';
+import { ModificarTipoDocumentoComponent } from './tipodocumento/modificar-tipo-documento/modificar-tipo-documento.component';
+import { CambiarEstadoTipoDocumentoComponent } from './tipodocumento/cambiar-estado-tipo-documento/cambiar-estado-tipo-documento.component';
+import { AltaTipoDocumentoComponent } from './tipodocumento/alta-tipo-documento/alta-tipo-documento.component';
+import { ObrasocialComponent } from './obrasocial/obrasocial.component';
+import { AltaObraSocialComponent } from './obrasocial/alta-obra-social/alta-obra-social.component';
+import { ModificarObraSocialComponent } from './obrasocial/modificar-obra-social/modificar-obra-social.component';
+import { VerObraSocialComponent } from './obrasocial/ver-obra-social/ver-obra-social.component';
+import { CambiarEstadoObraSocialComponent } from './obrasocial/cambiar-estado-obra-social/cambiar-estado-obra-social.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +42,15 @@ import { AbmTipodocumentoComponent } from './tipodocumento/abm-tipodocumento/abm
     PacienteComponent,
     MedicoComponent,
     TipodocumentoComponent,
-    AbmTipodocumentoComponent
+    VerTipoDocumentoComponent,
+    ModificarTipoDocumentoComponent,
+    CambiarEstadoTipoDocumentoComponent,
+    AltaTipoDocumentoComponent,
+    ObrasocialComponent,
+    AltaObraSocialComponent,
+    ModificarObraSocialComponent,
+    VerObraSocialComponent,
+    CambiarEstadoObraSocialComponent
   ],
   imports: [
     CommonModule,
@@ -50,8 +68,10 @@ import { AbmTipodocumentoComponent } from './tipodocumento/abm-tipodocumento/abm
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
   ]
 })
 export class HomeModule { }

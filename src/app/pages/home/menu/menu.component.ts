@@ -28,6 +28,10 @@ export class MenuComponent {
     this.router.navigate(['home', { outlets: { homecomponent: ['tipodocumento'] } }]);
   }
 
+  irObraSocial():void{
+    this.router.navigate(['home', { outlets: { homecomponent: ['obrasocial'] } }]);
+  }
+
   abrirConfigDialog(): void {
     const dialogRef = this.dialog.open(ConfigDialogComponent);
   }

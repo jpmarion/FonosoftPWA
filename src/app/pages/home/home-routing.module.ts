@@ -5,6 +5,7 @@ import { HomeComponent } from './home.component';
 import { MedicoComponent } from './medico/medico.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { TipodocumentoComponent } from './tipodocumento/tipodocumento.component';
+import { ObrasocialComponent } from './obrasocial/obrasocial.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,8 @@ const routes: Routes = [
     children: [
       { path: 'paciente', component: PacienteComponent, outlet: 'homecomponent' },
       { path: 'medico', component: MedicoComponent, outlet: 'homecomponent' },
-      { path: 'tipodocumento', component: TipodocumentoComponent, outlet: 'homecomponent' }
+      { path: 'tipodocumento', component: TipodocumentoComponent, outlet: 'homecomponent' },
+      { path: 'obrasocial', component: ObrasocialComponent, outlet: 'homecomponent' }
     ]
   }
 ];
