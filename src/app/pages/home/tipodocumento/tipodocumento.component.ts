@@ -57,8 +57,10 @@ export class TipodocumentoComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialogAltaTipoDocumento.open(AltaTipoDocumentoComponent, {
       width: '30%',
     }).afterClosed().subscribe(result => {
-      this.dataSource.data = [];
-      this.cargarTiposDocumentos();
+      if (result != '') {
+        this.dataSource.data = [];
+        this.cargarTiposDocumentos();
+      }
     });
   }
 
@@ -78,8 +80,10 @@ export class TipodocumentoComponent implements OnInit, AfterViewInit {
         idTipoDocumento: idTipoDocumento
       }
     }).afterClosed().subscribe(result => {
-      this.dataSource.data = [];
-      this.cargarTiposDocumentos();
+      if (result != '') {
+        this.dataSource.data = [];
+        this.cargarTiposDocumentos();
+      }
     });
   }
 
@@ -90,8 +94,11 @@ export class TipodocumentoComponent implements OnInit, AfterViewInit {
         idTipoDocumento: idTipoDocumento
       }
     }).afterClosed().subscribe(result => {
-      this.dataSource.data = [];
-      this.cargarTiposDocumentos();
+      if (result != '') {
+        this.dataSource.data = [];
+        this.cargarTiposDocumentos();
+
+      }
     });
   }
 

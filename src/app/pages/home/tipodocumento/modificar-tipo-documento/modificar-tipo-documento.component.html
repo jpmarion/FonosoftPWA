@@ -9,9 +9,9 @@
                     <input matInput formControlName="descripcionTipoDocumentoForm" id="descripcionTipoDocumentoForm">
                     <mat-error *ngIf="EsDescripcionInvalid()">{{ MensajeErrorDescripcion() | translate }}</mat-error>
                 </mat-form-field>
-                <div mat-dialog-actions>
-                    <button mat-raised-button color="primary" (click)="Ejecutar()">{{ _boton |
-                        translate }}</button>
+                <div mat-dialog-actions align="end">
+                    <button mat-raised-button color="primary" (click)="Ejecutar()">{{ _boton |                        translate }}</button>
+                    <button mat-raised-button color="warn" mat-dialog-close>{{ 'FORMTIPODOCUMENTO.btnCerrar' | translate }}</button>
                 </div>
             </form>
         </mat-card-content>
