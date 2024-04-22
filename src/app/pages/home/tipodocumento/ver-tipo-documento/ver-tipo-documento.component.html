@@ -5,12 +5,14 @@
         <mat-card-content>
             <form [formGroup]="_tipoDocumentoForm">
                 <mat-form-field appearance="fill" class="full-width">
-                    <input matInput formControlName="descripcionTipoDocumentoForm" id="descripcionTipoDocumentoForm">
+                    <input matInput formControlName="descripcionTipoDocumentoForm" id="descripcionTipoDocumentoForm"
+                        readonly="readonly">
                 </mat-form-field>
             </form>
         </mat-card-content>
         <div mat-dialog-actions align="end">
-            <button mat-raised-button color="warn" mat-dialog-close>{{ 'FORMTIPODOCUMENTO.btnCerrar' | translate }}</button>
+            <button mat-raised-button color="warn" mat-dialog-close>{{ 'FORMTIPODOCUMENTO.btnCerrar' | translate
+                }}</button>
         </div>
     </div>
 </mat-card>

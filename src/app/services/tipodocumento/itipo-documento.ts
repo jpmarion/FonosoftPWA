@@ -1,7 +1,8 @@
 export interface ITipoDocumento {
-    id: number;
-    descripcion: string;
+    idTipoDocumento: number;
+    nombreTipoDocumento: string;
+    nroDocumento: string;
     fechaInicio: Date;
     fechaFin: Date;
-    estaHabilitado: boolean;
+    estado: boolean;
 }

@@ -12,7 +12,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { ConfigDialogComponent } from './config-dialog/config-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 import { TranslateModule } from '@ngx-translate/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -33,7 +34,14 @@ import { AltaObraSocialComponent } from './obrasocial/alta-obra-social/alta-obra
 import { ModificarObraSocialComponent } from './obrasocial/modificar-obra-social/modificar-obra-social.component';
 import { VerObraSocialComponent } from './obrasocial/ver-obra-social/ver-obra-social.component';
 import { CambiarEstadoObraSocialComponent } from './obrasocial/cambiar-estado-obra-social/cambiar-estado-obra-social.component';
-
+import { AltaPacienteComponent } from './paciente/alta-paciente/alta-paciente.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { VerPacienteComponent } from './paciente/ver-paciente/ver-paciente.component';
+import { ModificarPacienteComponent } from './paciente/modificar-paciente/modificar-paciente.component';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -50,7 +58,10 @@ import { CambiarEstadoObraSocialComponent } from './obrasocial/cambiar-estado-ob
     AltaObraSocialComponent,
     ModificarObraSocialComponent,
     VerObraSocialComponent,
-    CambiarEstadoObraSocialComponent
+    CambiarEstadoObraSocialComponent,
+    AltaPacienteComponent,
+    VerPacienteComponent,
+    ModificarPacienteComponent,
   ],
   imports: [
     CommonModule,
@@ -71,7 +82,18 @@ import { CambiarEstadoObraSocialComponent } from './obrasocial/cambiar-estado-ob
     BrowserModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatGridListModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatNativeDateModule,
+    MatDatepickerModule
+  ],
+  providers: [
+    {
+      provide: MAT_DATE_LOCALE,
+      useValue: 'en-GB'
+    }
   ]
 })
 export class HomeModule { }

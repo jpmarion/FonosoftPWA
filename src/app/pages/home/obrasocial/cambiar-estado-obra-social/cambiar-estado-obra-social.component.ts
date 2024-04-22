@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit, Renderer2, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { IObraSocial } from 'src/app/model/iobra-social';
 import { ObrasocialService } from 'src/app/services/obrasocial/obrasocial.service';
 import { DialogData } from '../obrasocial.component';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Error } from 'src/app/model/error';
 import { ErrorDialogComponent } from 'src/app/pages/dialog/error-dialog/error-dialog.component';
 import { OkDialogComponent } from 'src/app/pages/dialog/ok-dialog/ok-dialog.component';
+import { IObraSocial } from 'src/app/services/obrasocial/iobra-social';
 
 @Component({
   selector: 'app-cambiar-estado-obra-social',
@@ -37,43 +37,26 @@ export class CambiarEstadoObraSocialComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.titulo = 'FORMOBRASOCIAL.matDialogTitleBaja'    
+    this.titulo = 'FORMOBRASOCIAL.matDialogTitleBaja'
     this.boton = 'FORMOBRASOCIAL.btnCambiarEstado';
     this.verObraSocial();
   }
 
   Ejecutar(): void {
-    if (this.obraSocial.estaHabilitado) {
-      this.obraSocialServices.DeshabilitarObraSocial(this.idObraSocial)
-        .subscribe({
-          next: (resultado) => {
-            this.openOkDialog('FORMOBRASOCIAL.TituloOkDialogCambiarEstado', 'FORMOBRASOCIAL.MsjOkDialogCambiarEstado');
-            this.dialogRef.close();
-          },
-          error: (e) => {
-            if (e instanceof Error) {
-              this.MensajeError(e);
-            } else {
-              console.error('Un error a ocurrido', e.error.message);
-            }
+    this.obraSocialServices.CambiarEstadoObraSocial(this.idObraSocial)
+      .subscribe({
+        next: (resultado) => {
+          this.openOkDialog('FORMOBRASOCIAL.TituloOkDialogCambiarEstado', 'FORMOBRASOCIAL.MsjOkDialogCambiarEstado');
+          this.dialogRef.close();
+        },
+        error: (e) => {
+          if (e instanceof Error) {
+            this.MensajeError(e);
+          } else {
+            console.error('Un error a ocurrido', e.error.message);
           }
-        });
-    } else {
-      this.obraSocialServices.HabilitarObraSocial(this.idObraSocial)
-        .subscribe({
-          next: (resultado) => {
-            this.openOkDialog('FORMOBRASOCIAL.TituloOkDialogCambiarEstado', 'FORMOBRASOCIAL.MsjOkDialogCambiarEstado');
-            this.dialogRef.close();
-          },
-          error: (e) => {
-            if (e instanceof Error) {
-              this.MensajeError(e);
-            } else {
-              console.error('Un error a ocurrido', e.error.message);
-            }
-          }
-        });
-    }
+        }
+      });
   }
 
   verObraSocial(): void {
@@ -81,7 +64,7 @@ export class CambiarEstadoObraSocialComponent implements OnInit {
       .subscribe({
         next: (result) => {
           this.obraSocial = result;
-          this.obraSocialForm.get('descripcionObraSocialForm')?.setValue(this.obraSocial.descripcion!);
+          this.obraSocialForm.get('descripcionObraSocialForm')?.setValue(this.obraSocial.nombre!);
         },
         error: (e) => {
           if (e instanceof Error) {

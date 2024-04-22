@@ -1,5 +1,4 @@
 export class Documento {
-    public IdDocumento?: number;
-    public DescripcionTipoDocumento?: string;
-    public NroDocumento?: string;
+    public descripcionTipoDocumento?: string;
+    public nroDocumento?: string;
 }

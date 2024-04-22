@@ -1,1 +1,18 @@
-
+<div class="container">
+    <mat-card class="responsive-card">
+        <mat-card-header class="mat-card-header">
+            <mat-card-title>{{ 'FORMCONFIRMARREGISTRO.titulos' | translate }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p class="mensaje-content">{{ 'FORMCONFIRMARREGISTRO.matCardContentMensaje' | translate }}</p>
+        </mat-card-content>
+        <mat-card-actions class="mat-card-actions">
+            <button (click)="onSubmit()" mat-raised-button color="primary">
+                {{ 'FORMCONFIRMARREGISTRO.btnConfirmar' | translate }}
+            </button>
+        </mat-card-actions>
+        <mat-card-footer>
+            <p class="mensaje-footer">{{ 'FORMCONFIRMARREGISTRO.matCardFoote' | translate }}</p>
+        </mat-card-footer>
+    </mat-card>
+</div>

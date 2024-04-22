@@ -47,7 +47,7 @@ export class CambiarEstadoTipoDocumentoComponent implements OnInit {
       .subscribe({
         next: (result) => {
           this._tipoDocumento = result;
-          this._tipoDocumentoForm.get('descripcionTipoDocumentoForm')?.setValue(this._tipoDocumento?.descripcion!);
+          this._tipoDocumentoForm.get('descripcionTipoDocumentoForm')?.setValue(this._tipoDocumento?.nombreTipoDocumento!);
         },
         error: (e) => {
           if (e instanceof Error) {
@@ -60,37 +60,20 @@ export class CambiarEstadoTipoDocumentoComponent implements OnInit {
   }
 
   Ejecutar(): void {
-    if (this._tipoDocumento?.estaHabilitado) {
-      this._tipoDocumentoServices.DeshabilitarTipoDocumento(this._idTipoDocumento)
-        .subscribe({
-          next: (resultado) => {
-            this.openOkDialog('FORMTIPODOCUMENTO.TituloOkDialogCambiarEstado', 'FORMTIPODOCUMENTO.MsjOkDialogCambiarEstado');
-            this.dialogRef.close();
-          },
-          error: (e) => {
-            if (e instanceof Error) {
-              this.MensajeError(e);
-            } else {
-              console.error('Un error a ocurrido', e.error.message);
-            }
-          }
-        });
-    } else {
-      this._tipoDocumentoServices.HabilitarTipoDocumento(this._idTipoDocumento)
-        .subscribe({
-          next: (resultado) => {
-            this.openOkDialog('FORMTIPODOCUMENTO.TituloOkDialogCambiarEstado', 'FORMTIPODOCUMENTO.MsjOkDialogCambiarEstado');
-            this.dialogRef.close();
-          },
-          error: (e) => {
-            if (e instanceof Error) {
-              this.MensajeError(e);
-            } else {
-              console.error('Un error a ocurrido', e.error.message);
-            }
-          }
-        });
-    }
+    this._tipoDocumentoServices.CambiarEstadoTipoDocumento(this._idTipoDocumento)
+    .subscribe({
+      next: (resultado) => {
+        this.openOkDialog('FORMTIPODOCUMENTO.TituloOkDialogCambiarEstado', 'FORMTIPODOCUMENTO.MsjOkDialogCambiarEstado');
+        this.dialogRef.close();
+      },
+      error: (e) => {
+        if (e instanceof Error) {
+          this.MensajeError(e);
+        } else {
+          console.error('Un error a ocurrido', e.error.message);
+        }
+      }
+    });
   }
 
   openOkDialog(titulo: string, mensaje: string) {

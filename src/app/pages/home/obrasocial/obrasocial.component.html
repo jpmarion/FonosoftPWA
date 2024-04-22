@@ -15,12 +15,12 @@
   
       <ng-container matColumnDef="descripcion">
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by descripcion">Obra Social</th>
-        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
       </ng-container>
   
       <ng-container matColumnDef="estado">
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by estado" >Estado</th>
-        <td mat-cell *matCellDef="let element" > {{element.estaHabilitado==true?'Habiltado':'Deshabilitado'}} </td>
+        <td mat-cell *matCellDef="let element" > {{element.estado==true?'Habiltado':'Deshabilitado'}} </td>
       </ng-container>
   
       <ng-container matColumnDef="action">

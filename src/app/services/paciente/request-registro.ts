@@ -1,6 +1,5 @@
 export class RequestRegistro {
-    usuario?: string;
+    nombreUsuario?: string;
     email?: string;
     password?: string;
-    bodyConfirmarRegistro?:string;
 }

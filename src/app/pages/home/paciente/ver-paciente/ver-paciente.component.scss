@@ -1,0 +1,33 @@
+mat-form-field + mat-form-field {
+  margin-left: 8px;
+  display: inline-flex;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.mismalinea{
+  padding-top: 8px;
+  display: flex;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: currentColor;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}

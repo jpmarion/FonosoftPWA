@@ -15,8 +15,6 @@ import { OkDialogComponent } from '../../dialog/ok-dialog/ok-dialog.component';
 })
 export class ConfigDialogComponent implements OnInit {
   hide = true;
-  errorLogin: boolean = false;
-  estadoBoton: boolean = true;
   requestCambiarContrasenia = new RequestCambiarContrasenia();
   cambiarPass = new FormGroup({
     password: new FormControl('', [Validators.required, Validators.minLength(8)])
@@ -26,13 +24,11 @@ export class ConfigDialogComponent implements OnInit {
   constructor(
     private dialogError: MatDialog,
     private dialogOk: MatDialog,
-    public dialogRef: MatDialogRef<ConfigDialogComponent>,
+    public dialogRefConfig: MatDialogRef<ConfigDialogComponent>,
     private authServices: AuthService
   ) { }
 
-  ngOnInit(): void {
-    this.errorLogin = false;
-  }
+  ngOnInit(): void { }
 
   cambiarContrasenia() {
     this.requestCambiarContrasenia.id = Number(localStorage.getItem('idUsuario')) ?? 0;
@@ -40,7 +36,11 @@ export class ConfigDialogComponent implements OnInit {
     this.authServices.CambiarContraseniaUsuairo(this.requestCambiarContrasenia)
       .subscribe({
         next: (resultado) => {
-          this.openOkDialog('FORMCONFIGURACION.TituloOkDialog', 'FORMCONFIGURACION.MsjOkDialog')
+          const dialogOk = this.dialogOk.open(OkDialogComponent,{
+            data:{titulo:'FORMCONFIGURACION.TituloOkDialog', mensaje:'FORMCONFIGURACION.MsjOkDialog'}
+          }).afterClosed().subscribe((result=>{
+            this.dialogRefConfig.close();
+          }))
         },
         error: (e) => {
           if (e instanceof Error) {
@@ -80,16 +80,4 @@ export class ConfigDialogComponent implements OnInit {
     }
     return '';
   }
-
-  getEstadoBoton() {
-
-    return true;
-  }
-
-  openOkDialog(titulo: string, mensaje: string) {
-    const dialogRef = this.dialogOk.open(OkDialogComponent, {
-      data: { titulo: titulo, mensaje: mensaje }
-    });
-  }
-
 }

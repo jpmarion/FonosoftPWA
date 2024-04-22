@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SiNoDialogComponent } from '../../dialog/si-no-dialog/si-no-dialog.component';
 import { ConfigDialogComponent } from '../config-dialog/config-dialog.component';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -13,7 +14,8 @@ export class MenuComponent {
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private dialogoSalir: MatDialog
+    private dialogoSalir: MatDialog,
+    private authServices: AuthService,
   ) { }
 
   irPacientes(): void {
@@ -43,8 +45,7 @@ export class MenuComponent {
       .afterClosed()
       .subscribe((si: boolean) => {
         if (si) {
-          localStorage.removeItem('idUsuario');
-          localStorage.removeItem('token');
+          this.authServices.onLogout();
           this.router.navigate(['/']);
         }
       })

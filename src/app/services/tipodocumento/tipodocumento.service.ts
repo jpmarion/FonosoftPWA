@@ -22,8 +22,8 @@ const httpOptions = {
 export class TipodocumentoService {
   private apiUrl = environment.apiUrlEntidades;
   private tipoDocumentoUrl = this.apiUrl + '/api/TipoDocumento';
-  private DeshabilitarTipoDocumentoUrl = this.tipoDocumentoUrl + '/DeshabilitarTipoDocumento/';
-  private HabilitarTipoDocumentoUrl = this.tipoDocumentoUrl + '/HabilitarTipoDocumento/';
+  private tiposDocumentosHabilitados = this.tipoDocumentoUrl + '/GetHabilitados';
+  private CambiarEstadoTipoDocumentoUrl = this.tipoDocumentoUrl + '/CambiarEstado?IdTipoDocumento=';
 
   constructor(
     private http: HttpClient
@@ -40,9 +40,20 @@ export class TipodocumentoService {
     );
   }
 
+  BuscarTiposDocumentosHabilitados(): Observable<any> {
+    return this.http.get<ITipoDocumento[]>(this.tiposDocumentosHabilitados).pipe(
+      map((response: ITipoDocumento[]) => {
+        return response;
+      }),
+      catchError(error =>
+        this.handleError(error)
+      )
+    )
+  }
+
   AgregarTipoDocumento(request: RequestAddTipoDocumento): Observable<any> {
     const requestJson = JSON.stringify({
-      descripcion: request.descripcion
+      nombreTipoDocumento: request.descripcion
     });
 
     return this.http.post<any>(this.tipoDocumentoUrl, requestJson, httpOptions)
@@ -58,8 +69,8 @@ export class TipodocumentoService {
 
   ModificarTipoDocumento(request: RequestPutTipoDocumento): Observable<any> {
     const requestJson = JSON.stringify({
-      id: request.id,
-      descripcion: request.descripcion
+      idTipoDocumento: request.id,
+      nombreTipoDocumento: request.descripcion
     });
 
     return this.http.put<any>(this.tipoDocumentoUrl, requestJson, httpOptions)
@@ -74,15 +85,6 @@ export class TipodocumentoService {
   }
 
   BuscarTipoDocumento(idTipoDocumento: number): Observable<ITipoDocumento> {
-    // return this.http.get<Tipodocumento>(this.tipoDocumentoUrl + '/' + idTipoDocumento, httpOptions)
-    //   .pipe(
-    //     map((response: Tipodocumento) => {
-    //       return response;
-    //     }),
-    //     catchError(error =>
-    //       this.handleError(error)
-    //     )
-    //   );
     return this.http.get<ITipoDocumento>(this.tipoDocumentoUrl + '/' + idTipoDocumento)
       .pipe(
         catchError(error =>
@@ -90,20 +92,8 @@ export class TipodocumentoService {
       );
   }
 
-  DeshabilitarTipoDocumento(idTipoDocumento: number): Observable<any> {
-    return this.http.put<any>(this.DeshabilitarTipoDocumentoUrl + idTipoDocumento, httpOptions)
-      .pipe(
-        map((response: any) => {
-          return response;
-        }),
-        catchError(error =>
-          this.handleError(error)
-        )
-      );
-  }
-
-  HabilitarTipoDocumento(idTipoDocumento: number): Observable<any> {
-    return this.http.put<any>(this.HabilitarTipoDocumentoUrl + idTipoDocumento, httpOptions)
+  CambiarEstadoTipoDocumento(idTipoDocumento: number): Observable<any> {
+    return this.http.put<any>(this.CambiarEstadoTipoDocumentoUrl + idTipoDocumento, httpOptions)
       .pipe(
         map((response: any) => {
           return response;

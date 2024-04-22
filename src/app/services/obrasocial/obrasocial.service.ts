@@ -1,11 +1,11 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { IObraSocial } from 'src/app/model/iobra-social';
 import { environment } from 'src/environments/environment';
 import { Error } from 'src/app/model/error';
 import { RequestAddObraSocial } from './request-add-obra-social';
 import { RequestModifcarObraSocial } from './request-modifcar-obra-social';
+import { IObraSocial } from './iobra-social';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -22,9 +22,8 @@ export class ObrasocialService {
 
   private apiUrl = environment.apiUrlEntidades;
   private obraSocialUrl = this.apiUrl + '/api/ObraSocial';
-  private habilitadosURl = this.obraSocialUrl + '/Habilitados';
-  private deshabilitarObraSocialUrl = this.obraSocialUrl + '/Deshabilitar/';
-  private habilitarObraSocialUrl = this.obraSocialUrl + '/Habilitar/';
+  private habilitadosURl = this.obraSocialUrl + '/GetHabilitados';
+  private cambiarEstadoObraSocialUrl = this.obraSocialUrl + '/CambiarEstado?IdObraSocial=';
 
   constructor(
     private http: HttpClient
@@ -62,7 +61,7 @@ export class ObrasocialService {
 
   AgregarObraSocial(requestAddObraSocial: RequestAddObraSocial): Observable<any> {
     const requestJson = JSON.stringify({
-      descripcion: requestAddObraSocial.descripcion
+      nombre: requestAddObraSocial.descripcion,
     });
 
     return this.http.post<any>(this.obraSocialUrl, requestJson, httpOptions)
@@ -78,8 +77,8 @@ export class ObrasocialService {
 
   ModificarObraSocial(requestModificarObraSocial: RequestModifcarObraSocial): Observable<any> {
     const requestJson = JSON.stringify({
-      id: requestModificarObraSocial.id,
-      descripcion: requestModificarObraSocial.descripcion
+      idObraSocial: requestModificarObraSocial.id,
+      nombreObraSocial: requestModificarObraSocial.descripcion
     });
 
     return this.http.put<any>(this.obraSocialUrl, requestJson, httpOptions)
@@ -93,20 +92,8 @@ export class ObrasocialService {
       );
   }
 
-  DeshabilitarObraSocial(idObraSocial: number): Observable<any> {
-    return this.http.put<any>(this.deshabilitarObraSocialUrl + idObraSocial, httpOptions)
-      .pipe(
-        map((response: any) => {
-          return response;
-        }),
-        catchError(error =>
-          this.handleError(error)
-        )
-      );
-  }
-
-  HabilitarObraSocial(idObraSocial: number): Observable<any> {
-    return this.http.put<any>(this.habilitarObraSocialUrl + idObraSocial, httpOptions)
+  CambiarEstadoObraSocial(idObraSocial: number): Observable<any> {
+    return this.http.put<any>(this.cambiarEstadoObraSocialUrl + idObraSocial, httpOptions)
       .pipe(
         map((response: any) => {
           return response;

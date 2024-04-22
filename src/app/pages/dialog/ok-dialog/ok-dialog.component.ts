@@ -9,13 +9,12 @@ import { IOkDialog } from './IOkDialog';
 })
 export class OkDialogComponent implements OnInit {
   constructor(
-    public dialogRef: MatDialogRef<OkDialogComponent>,
+    public dialogRefOkComponent: MatDialogRef<OkDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IOkDialog
-  ) { }
+  ) {
+    dialogRefOkComponent.disableClose = true;
+  }
 
   ngOnInit(): void { }
-
-  ok(): void {
-    this.dialogRef.close();
-  }
+  
 }

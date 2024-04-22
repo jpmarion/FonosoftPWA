@@ -30,10 +30,12 @@ export class RegistroComponent implements OnInit {
   constructor(
     private dialogError: MatDialog,
     private dialogOk: MatDialog,
-    public dialogRef: MatDialogRef<RegistroComponent>,
+    public dialogRefRegistro: MatDialogRef<RegistroComponent>,
     private authService: AuthService,
     private renderer: Renderer2
-  ) { }
+  ) {
+    this.dialogRefRegistro.disableClose = true;
+  }
 
   ngOnInit(): void {
     this.errorRegistro = false;
@@ -41,16 +43,21 @@ export class RegistroComponent implements OnInit {
 
   registro() {
     this.estadoBoton = true;
-    this.rqtRegistro.usuario = this.registroForm.get('usuario')?.value!;
+    this.rqtRegistro.nombreUsuario = this.registroForm.get('usuario')?.value!;
     this.rqtRegistro.email = this.registroForm.get('email')?.value!;
     this.rqtRegistro.password = this.registroForm.get('passwordreg')?.value!;
-    this.rqtRegistro.bodyConfirmarRegistro = this.getHtmlMail(this.confirmarUrl + '/' + this.rqtRegistro.usuario);
 
     this.authService.Registrar(this.rqtRegistro)
       .subscribe({
         next: (resultado) => {
-          this.dialogRef.close();
-          this.openOkDialog('FORMREGISTRO.TituloOkDialog', 'FORMREGISTRO.MsjOkDialog');
+          const dialogRef = this.dialogOk.open(OkDialogComponent, {
+            data: { titulo: 'FORMREGISTRO.TituloOkDialog', mensaje: 'FORMREGISTRO.MsjOkDialog' }
+          }).afterClosed().subscribe((result) => {
+            this.dialogRefRegistro.close();
+
+          });
+          // this.openOkDialog('FORMREGISTRO.TituloOkDialog', 'FORMREGISTRO.MsjOkDialog');
+          // this.dialogRefRegistro.close();
         },
         error: (e) => {
           if (e instanceof Error) {
@@ -65,20 +72,18 @@ export class RegistroComponent implements OnInit {
 
   private MensajeError(error: Error) {
     switch (error.NroError) {
-      case "ErrorAuth8":
+      case "Error1":
+      case "Error6":
+      case "Error8":
+        this.MostrarMsj(error.MsgError?.toString()!, 'usuario');
+        break;
+      case "Error2":
+      case "Error3":
         this.MostrarMsj(error.MsgError?.toString()!, '#email');
         break;
-      case "ErrorAuth5":
-      case "ErrorAuth6":
+      case "Error4":
+      case "Error5":
         this.MostrarMsj(error.MsgError?.toString()!, '#password');
-        break;
-      // case 7:
-      //   this.MostrarMsj(error.MsgError?.toString()!, '');
-      //   break;
-      case "ErrorAuth1":
-      case "ErrorAuth2":
-      case "ErrorAuth3":
-        this.MostrarMsj(error.MsgError?.toString()!, 'usuario');
         break;
       default:
         break;

@@ -27,10 +27,15 @@
                         </mat-form-field>
                     </div>
                 </mat-card-content>
-                <mat-card-actions>
-                    <button (click)="Registrarse()" mat-button>{{ 'FORMLOGIN.btnRegistro' | translate }}</button>
-                    <button (click)="onSubmit()" mat-raised-button color="primary">{{ 'FORMLOGIN.btnIniciarSesion' |
-                        translate }}</button>
+                <mat-card-actions align="end">
+                    <div class="contenedor-mat-card-action">
+                        <button (click)="Registrarse()" mat-button [disabled]="login.invalid">
+                            {{ 'FORMLOGIN.btnRegistro'| translate }}
+                        </button>
+                        <button (click)="onSubmit()" mat-raised-button color="primary">
+                            {{ 'FORMLOGIN.btnIniciarSesion' | translate }}
+                        </button>
+                    </div>
                 </mat-card-actions>
             </form>
         </mat-card>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, inject } from '@angular/core';
+import { Component, Injectable, OnInit, Renderer2, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/pages/dialog/error-dialog/error-dialog.component';
@@ -6,11 +6,42 @@ import { OkDialogComponent } from 'src/app/pages/dialog/ok-dialog/ok-dialog.comp
 import { ObrasocialService } from 'src/app/services/obrasocial/obrasocial.service';
 import { RequestAddObraSocial } from 'src/app/services/obrasocial/request-add-obra-social';
 import { Error } from 'src/app/model/error';
+import { DateRange, MAT_DATE_RANGE_SELECTION_STRATEGY, MatDateRangeSelectionStrategy } from '@angular/material/datepicker';
+import { DateAdapter } from '@angular/material/core';
+
+@Injectable()
+export class FiveDayRangeSelectionStrategy<D> implements MatDateRangeSelectionStrategy<D> {
+  constructor(private _dateAdapter: DateAdapter<D>) { }
+
+  selectionFinished(date: D | null): DateRange<D> {
+    return this._createFiveDayRange(date);
+  }
+
+  createPreview(activeDate: D | null): DateRange<D> {
+    return this._createFiveDayRange(activeDate);
+  }
+
+  private _createFiveDayRange(date: D | null): DateRange<D> {
+    if (date) {
+      const start = this._dateAdapter.today();//  date;
+      const end = this._dateAdapter.addCalendarYears(date, 100);
+      return new DateRange<D>(start, end);
+    }
+
+    return new DateRange<D>(null, null);
+  }
+}
 
 @Component({
   selector: 'app-alta-obra-social',
   templateUrl: './alta-obra-social.component.html',
-  styleUrls: ['./alta-obra-social.component.scss']
+  styleUrls: ['./alta-obra-social.component.scss'],
+  providers: [
+    {
+      provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
+      useClass: FiveDayRangeSelectionStrategy,
+    },
+  ],
 })
 export class AltaObraSocialComponent implements OnInit {
 
@@ -79,7 +110,7 @@ export class AltaObraSocialComponent implements OnInit {
       });
   }
 
-  EsDescripcionInvalid() {  
+  EsDescripcionInvalid() {
     return this._obraSocialForm.get('descripcionTipoDocumentoForm')?.invalid;
   }
 

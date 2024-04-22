@@ -46,7 +46,7 @@ export class ModificarTipoDocumentoComponent implements OnInit {
       .subscribe({
         next: (result) => {
           this._tipoDocumento = result;
-          this._tipoDocumentoForm.get('descripcionTipoDocumentoForm')?.setValue(this._tipoDocumento?.descripcion!);
+          this._tipoDocumentoForm.get('descripcionTipoDocumentoForm')?.setValue(this._tipoDocumento?.nombreTipoDocumento!);
         },
         error: (e) => {
           if (e instanceof Error) {

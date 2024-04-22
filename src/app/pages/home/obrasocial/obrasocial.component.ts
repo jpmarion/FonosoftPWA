@@ -5,12 +5,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IObraSocial } from 'src/app/model/iobra-social';
 import { ObrasocialService } from 'src/app/services/obrasocial/obrasocial.service';
 import { AltaObraSocialComponent } from './alta-obra-social/alta-obra-social.component';
 import { ModificarObraSocialComponent } from './modificar-obra-social/modificar-obra-social.component';
 import { VerObraSocialComponent } from './ver-obra-social/ver-obra-social.component';
 import { CambiarEstadoObraSocialComponent } from './cambiar-estado-obra-social/cambiar-estado-obra-social.component';
+import { IObraSocial } from 'src/app/services/obrasocial/iobra-social';
 
 export interface DialogData {
   idObraSocial: number;
@@ -70,9 +70,9 @@ export class ObrasocialComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialogAltaObraSocial.open(AltaObraSocialComponent, {
       width: '30%',
     }).afterClosed().subscribe(result => {
-      if (result!='') {
+      if (result != '') {
         this.dataSource.data = [];
-      this.CargarObrasSociales();
+        this.CargarObrasSociales();
       }
     });
   }
@@ -84,9 +84,9 @@ export class ObrasocialComponent implements OnInit, AfterViewInit {
         idObraSocial: id
       }
     }).afterClosed().subscribe(result => {
-      if (result!='') {
+      if (result != '') {
         this.dataSource.data = [];
-        this.CargarObrasSociales();  
+        this.CargarObrasSociales();
       }
     });
   }

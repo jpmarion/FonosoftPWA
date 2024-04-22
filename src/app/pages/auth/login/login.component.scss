@@ -1,4 +1,4 @@
-mat-card{
+mat-card {
     width: 70%;
 }
 
@@ -9,12 +9,17 @@ mat-grid-list {
 .container mat-form-field+mat-form-field {
     margin-left: 8px;
 }
-.form{
+
+.form {
     width: 100%;
 }
-.contenedor{
+
+.contenedor {
     display: flex;
-    flex-direction: column ;
-    
+    flex-direction: column;
 }
 
+.contenedor-mat-card-action {
+    display: flex;
+    flex-direction: column-reverse;
+}

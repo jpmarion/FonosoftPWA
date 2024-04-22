@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.authServices.onLogin(this.requestLogin)
       .subscribe({
         next: (resultado) => {
-          localStorage.setItem('idUsuario', resultado['id']);
+          localStorage.setItem('idUsuario', resultado['idUsuario']);
           localStorage.setItem('token', resultado['token'])
           this.router.navigate(['home'])
         },
@@ -59,16 +59,13 @@ export class LoginComponent implements OnInit {
 
   private MensajeError(error: Error) {
     switch (error.NroError) {
-      case "ErrorAuth1":
-      case "ErrorAuth2":
-      case "ErrorAuth3":
-      case "ErrorAuth4":
-      case "ErrorAuth10":
+      case "Error1":
+      case "Error9":
+      case "Error12":
         this.MostrarMsj(error.MsgError?.toString()!, '#usuario');
         break;
-      case "ErrorAuth5":
-      case "ErrorAuth6":
-      case "ErrorAuth7":
+      case "Error4":
+      case "Error5":
         this.MostrarMsj(error.MsgError?.toString()!, '#password');
         break;
       // case 7:

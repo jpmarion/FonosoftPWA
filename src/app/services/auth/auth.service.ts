@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { Usuario } from 'src/app/model/usuario.model';
 import { environment } from 'src/environments/environment';
 import { RequestLogin } from './request-login.model';
@@ -23,10 +23,10 @@ export class AuthService {
 
   private currentUser?: Usuario;
   private readonly apiUrl = environment.apiUrlAuth;
-  private loginUrl = this.apiUrl + '/api/Login/login';
-  private cambiarContraseniaUrl = this.apiUrl + '/api/Login/cambiarcontraseniausuario';
-  private registrarUrl = this.apiUrl + '/api/Login/registrar';
-  private confirmarUsuarioUrl = this.apiUrl + '/api/Login/confirmarusuario/?nombreUsuario=';
+  private loginUrl = this.apiUrl + '/api/Auth/Login';
+  private cambiarContraseniaUrl = this.apiUrl + '/api/Auth/ModificarContrasenia';
+  private registrarUrl = this.apiUrl + '/api/Auth/Registrar';
+  private confirmarUsuarioUrl = this.apiUrl + '/api/Auth/Confirmar';
 
   constructor(
     private http: HttpClient,
@@ -36,7 +36,7 @@ export class AuthService {
   onLogin(requestLogin: RequestLogin): Observable<any> {
     const request = JSON.stringify({
       nombreUsuario: requestLogin.nombreUsuario,
-      password: requestLogin.password
+      contrasenia: requestLogin.password
     });
 
     return this.http.post(this.loginUrl, request, httpOptions)
@@ -50,9 +50,13 @@ export class AuthService {
         ));
   }
 
+  onLogout(): void {
+    this.currentUser = undefined;
+  }
+
   CambiarContraseniaUsuairo(requestCambiarContrasenia: RequestCambiarContrasenia): Observable<any> {
     const request = JSON.stringify({
-      id: requestCambiarContrasenia.id,
+      idUsuario: requestCambiarContrasenia.id,
       password: requestCambiarContrasenia.password
     });
 
@@ -61,16 +65,16 @@ export class AuthService {
         map((response: any) => {
           return response;
         }),
-        catchError(this.handleError
+        catchError(error =>
+          this.handleError(error)
         ));
   }
 
   Registrar(requestRegistro: RequestRegistro): Observable<any> {
     const request = JSON.stringify({
-      nombreUsuario: requestRegistro.usuario,
+      nombreUsuario: requestRegistro.nombreUsuario,
       email: requestRegistro.email,
-      password: requestRegistro.password,
-      BodyConfirmarRegistro: requestRegistro.bodyConfirmarRegistro
+      contrasenia: requestRegistro.password,
     });
 
     return this.http.post(this.registrarUrl, request, httpOptions)
@@ -83,9 +87,12 @@ export class AuthService {
         ));
   }
 
-  ConfirmarRegistro(nombreUsuario: string): Observable<any> {
-    const body: string = '';
-    return this.http.put(this.confirmarUsuarioUrl + nombreUsuario, body)
+  ConfirmarRegistro(id: string): Observable<any> {
+    const request = JSON.stringify({
+      Id: id
+    });
+
+    return this.http.post(this.confirmarUsuarioUrl, request, httpOptions)
       .pipe(
         map((response: any) => {
           return response;
@@ -105,6 +112,14 @@ export class AuthService {
       default:
         return `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
+  }
+
+  getToken(): string {
+    return this.currentUser?.token!;
+  }
+
+  getCurrentUser(): Usuario {
+    return this.currentUser!;
   }
 
   estaAutenticado(): boolean {

@@ -1,0 +1,191 @@
+<h1 mat-dialog-title>{{ 'FORMPACIENTE.matDialogTitleAlta' | translate }}</h1>
+<form [formGroup]="pacienteForm">
+    <mat-dialog-content>
+        <div class="mismalinea">
+            <mat-form-field>
+                <mat-label>{{ 'FORMPACIENTE.matLabeApellido' | translate }}</mat-label>
+                <input matInput formControlName="apellidoPacienteForm" id="apellidoPacienteForm" align="start">
+                <mat-error *ngIf="EsApellidoInvalido">{{ MensajeErrorApellido() | translate }}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ 'FORMPACIENTE.matLabeNombre' | translate }}</mat-label>
+                <input matInput formControlName="nombrePacienteForm" id="nombrePacienteForm" align="end">
+                <mat-error *ngIf="EsNombreInvalido">{{ MensajeErrorNombre() | translate }}</mat-error>
+            </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="wrapper">
+            <div>
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-subtitle>{{ 'FORMPACIENTE.matDialogTitleDocumento' | translate
+                            }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="mismalinea">
+                            <mat-form-field>
+                                <mat-label>Tipo Documento</mat-label>
+                                <mat-select formControlName="tipodocumentoForm" id="tipodocumentoForm">
+                                    <mat-option *ngFor="let tipodocumento of tiposDocumentos"
+                                        [value]="tipodocumento.idTipoDocumento">{{
+                                        tipodocumento.nombreTipoDocumento }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Nro. Documento</mat-label>
+                                <input matInput formControlName="nrodocumentoForm" id="nrodocumentoForm">
+                            </mat-form-field>
+                            <button mat-mini-fab color="primary" [disabled]="!this.esAgregarBotonDocumento" matSuffix
+                                (click)="AgregarDocumento()">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                            <button mat-mini-fab color="accent" [disabled]="this.esAgregarBotonDocumento" matSuffix
+                                (click)="ModificarDocumento()">
+                                <mat-icon>cached</mat-icon>
+                            </button>
+                            <button mat-mini-fab color="warn" [disabled]="this.esAgregarBotonDocumento" matSuffix
+                                (click)="EliminarDocumento()">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </div>
+                        <table mat-table [dataSource]="dtsDocumentos" matSort class="mat-elevation-z8 demo-table">
+                            <ng-container matColumnDef="tipodocumento">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'FORMPACIENTE.MatHeaderCellTipoDoc' |
+                                    translate }}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.DescripcionTipoDocumento}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="nrodocumento">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'FORMPACIENTE.MatHeaderCellNroDoc' |
+                                    translate }}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.NroDocumento}} </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsDocumento"></tr>
+                            <tr mat-row class="example-element-row" (click)="onRowClickDocumento(row)"
+                                [class.demo-row-is-clicked]="clickedRows.has(row)"
+                                *matRowDef="let row; columns: displayedColumnsDocumento;"></tr>
+                        </table>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div>
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-subtitle>{{ 'FORMPACIENTE.matDialogTitleObraSocial' | translate
+                            }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="mismalinea">
+                            <mat-form-field>
+                                <mat-label>{{ 'FORMPACIENTE.lblTipoObraSocial' | translate}}</mat-label>
+                                <mat-select formControlName="obraSocialForm" id="obraSocialForm">
+                                    <mat-option *ngFor="let obraSocial of obrasSociales" [value]="obraSocial.id">{{
+                                        obraSocial.nombre }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>{{ 'FORMPACIENTE.lblNroObraSocial' | translate}}</mat-label>
+                                <input matInput formControlName="nroobrasocialform" id="nroobrasocialform">
+                            </mat-form-field>
+                            <button mat-mini-fab color="primary" [disabled]="!this.esAgregarBotonObraSocial" matSuffix
+                                (click)="AgregarObraSocial()">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                            <button mat-mini-fab color="accent" [disabled]="this.esAgregarBotonObraSocial" matSuffix
+                                (click)="ModificarObraSocial()">
+                                <mat-icon>cached</mat-icon>
+                            </button>
+                            <button mat-mini-fab color="warn" [disabled]="this.esAgregarBotonObraSocial" matSuffix
+                                (click)="EliminarObraSocial()">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </div>
+                        <table mat-table [dataSource]="dtsObrasSociales" matSort class="mat-elevation-z8 demo-table">
+                            <ng-container matColumnDef="obraSocial">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'FORMPACIENTE.MatHeaderCellObraSocial' |
+                                    translate }}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.obraSocial}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="nroObraSocial">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'FORMPACIENTE.MatHeaderCellNroObraSocial'
+                                    |
+                                    translate
+                                    }}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.nroObraSocial}} </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsObraSocial"></tr>
+                            <tr mat-row class="example-element-row" (click)="onRowClickObraSocial(row)"
+                                [class.demo-row-is-clicked]="clickedRows.has(row)"
+                                *matRowDef="let row; columns: displayedColumnsObraSocial;"></tr>
+                        </table>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div>
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-subtitle>{{ 'FORMPACIENTE.matDialogTitleContacto' | translate
+                            }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="mismalinea">
+                            <mat-form-field>
+                                <mat-label>{{ 'FORMPACIENTE.lblTipoTipoContacto' | translate}}</mat-label>
+                                <mat-select formControlName="tipoContactoForm" id="tipoContactoForm">
+                                    <mat-option *ngFor="let tipoContacto of tiposContactos"
+                                        [value]="tipoContacto.idTipoContacto">{{
+                                        tipoContacto.tipoContacto }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>{{ 'FORMPACIENTE.lblContacto' | translate}}</mat-label>
+                                <input matInput formControlName="contactoform" id="contactoform">
+                            </mat-form-field>
+                            <button mat-mini-fab color="primary" [disabled]="!this.esAgregarBotonTipoContacto" matSuffix
+                                (click)="AgregarContacto()">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                            <button mat-mini-fab color="accent" [disabled]="this.esAgregarBotonTipoContacto" matSuffix
+                                (click)="ModificarContacto()">
+                                <mat-icon>cached</mat-icon>
+                            </button>
+                            <button mat-mini-fab color="warn" [disabled]="this.esAgregarBotonTipoContacto" matSuffix
+                                (click)="EliminarContacto()">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </div>
+                        <table mat-table [dataSource]="dtsTipoContactos" matSort class="mat-elevation-z8 demo-table">
+                            <ng-container matColumnDef="tipoContacto">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'FORMPACIENTE.MatHeaderCellTipoContacto' |
+                                    translate }}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.tipoContacto}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="contacto">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'FORMPACIENTE.MatHeaderCellContacto'
+                                    |
+                                    translate
+                                    }}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.contacto}} </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsTipoContacto"></tr>
+                            <tr mat-row class="example-element-row" (click)="onRowClicContacto(row)"
+                                [class.demo-row-is-clicked]="clickedRows.has(row)"
+                                *matRowDef="let row; columns: displayedColumnsTipoContacto;"></tr>
+                        </table>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button color="primary" (click)="Ejecutar()">{{ 'FORMPACIENTE.btnAgregar' | translate
+            }}</button>
+        <button mat-raised-button color="warn" mat-dialog-close>{{ 'FORMPACIENTE.btnCerrar' | translate }}</button>
+    </mat-dialog-actions>
+</form>

@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit, Renderer2, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { IObraSocial } from 'src/app/model/iobra-social';
 import { ObrasocialService } from 'src/app/services/obrasocial/obrasocial.service';
 import { DialogData } from '../obrasocial.component';
 import { Error } from 'src/app/model/error';
 import { ErrorDialogComponent } from 'src/app/pages/dialog/error-dialog/error-dialog.component';
+import { IObraSocial } from 'src/app/services/obrasocial/iobra-social';
 
 @Component({
   selector: 'app-ver-obra-social',
@@ -40,7 +40,7 @@ export class VerObraSocialComponent implements OnInit {
       .subscribe({
         next: (result) => {
           this.obraSocial = result;
-          this.obraSocialForm.get('descripcionObraSocialForm')?.setValue(this.obraSocial.descripcion!);
+          this.obraSocialForm.get('descripcionObraSocialForm')?.setValue(this.obraSocial.nombre!);
         },
         error: (e) => {
           if (e instanceof Error) {

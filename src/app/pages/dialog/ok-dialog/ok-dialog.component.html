@@ -3,7 +3,7 @@
   <div mat-dialog-content>
     <p>{{ data.mensaje | translate}}</p>
   </div>
-  <div mat-dialog-actions>
-    <button mat-raised-button color="primary" (click)="ok()">Ok</button>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" mat-dialog-close>Ok</button>
   </div>
 </div>

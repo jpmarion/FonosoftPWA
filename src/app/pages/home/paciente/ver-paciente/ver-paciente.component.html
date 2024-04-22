@@ -1,0 +1,103 @@
+<form [formGroup]="pacienteForm">
+    <h1 mat-dialog-title>{{ 'FORMPACIENTE.matDialogTitleVer' | translate }}</h1>
+    <mat-dialog-content>
+        <div class="mismalinea">
+            <mat-form-field>
+                <mat-label>{{ 'FORMPACIENTE.matLabeApellido' | translate }}</mat-label>
+                <input matInput formControlName="apellidoPacienteForm" id="apellidoPacienteForm" align="start"
+                    readonly="readonly">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ 'FORMPACIENTE.matLabeNombre' | translate }}</mat-label>
+                <input matInput formControlName="nombrePacienteForm" id="nombrePacienteForm" align="end"
+                    readonly="readonly">
+            </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="wrapper">
+            <div>
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-subtitle>{{ 'FORMPACIENTE.matDialogTitleDocumento' | translate }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <table mat-table [dataSource]="dtsDocumentos" class="mat-elevation-z8 demo-table">
+                            <ng-container matColumnDef="tipodocumento">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'FORMPACIENTE.MatHeaderCellTipoDoc' |
+                                    translate }}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.DescripcionTipoDocumento}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="nrodocumento">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'FORMPACIENTE.MatHeaderCellNroDoc' | translate
+                                    }}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.NroDocumento}} </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsDocumento"></tr>
+                            <tr mat-row class="example-element-row"
+                                *matRowDef="let row; columns: displayedColumnsDocumento;"></tr>
+                        </table>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div>
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-subtitle>{{ 'FORMPACIENTE.matDialogTitleObraSocial' | translate }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <table mat-table matSort [dataSource]="dtsObraSocial" class="mat-elevation-z8 demo-table">
+                            <ng-container matColumnDef="obraSocial">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'FORMPACIENTE.MatHeaderCellObraSocial' |
+                                    translate
+                                    }}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.obraSocial}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="nroObraSocial">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'FORMPACIENTE.MatHeaderCellNroObraSocial' |
+                                    translate }}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.nroObraSocial}} </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsObraSocial"></tr>
+                            <tr mat-row class="example-element-row"
+                                *matRowDef="let row; columns: displayedColumnsObraSocial;"></tr>
+                        </table>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div>
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-subtitle>{{ 'FORMPACIENTE.matDialogTitleContacto' | translate }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <table mat-table matSort [dataSource]="dtsContactos" class="mat-elevation-z8 demo-table">
+                            <ng-container matColumnDef="tipoContacto">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'FORMPACIENTE.MatHeaderCellTipoContacto' |
+                                    translate
+                                    }}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.tipoContacto}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="contacto">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'FORMPACIENTE.MatHeaderCellContacto' |
+                                    translate }}
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.contacto}} </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsContacto"></tr>
+                            <tr mat-row class="example-element-row"
+                                *matRowDef="let row; columns: displayedColumnsContacto;"></tr>
+                        </table>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button color="warn" mat-dialog-close>{{ 'FORMPACIENTE.btnCerrar' | translate }}</button>
+    </mat-dialog-actions>
+</form>
