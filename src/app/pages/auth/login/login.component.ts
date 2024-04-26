@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { RequestLogin } from 'src/app/services/auth/request-login.model';
 import { ErrorDialogComponent } from '../../dialog/error-dialog/error-dialog.component';
 import { RegistroComponent } from '../registro/registro.component';
+import { RecuperarComponent } from '../recuperar/recuperar.component';
 
 @Component({
   selector: 'app-login',
@@ -89,6 +90,14 @@ export class LoginComponent implements OnInit {
 
   Registrarse() {
     const dialogRef = this.dialog.open(RegistroComponent);
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        console.log(result);
+      });
+  }
+
+  Recuperar() {
+    const dialogRef = this.dialog.open(RecuperarComponent);
     dialogRef.afterClosed().subscribe(
       (result) => {
         console.log(result);

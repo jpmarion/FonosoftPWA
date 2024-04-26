@@ -28,14 +28,25 @@
                     </div>
                 </mat-card-content>
                 <mat-card-actions class="mat-card-action">
-                    <button (click)="onSubmit()" mat-raised-button color="primary">
+                    <button (click)="onSubmit()" mat-raised-button color="primary" [disabled]="login.invalid">
                         {{ 'FORMLOGIN.btnIniciarSesion' | translate }}
                     </button>
                 </mat-card-actions>
                 <mat-card-footer class="mat-card-footer">
-                    <button (click)="Registrarse()" mat-button [disabled]="login.invalid">
-                        {{ 'FORMLOGIN.btnRegistro'| translate }}
-                    </button>
+                    <div class="line-wrapper">
+                        <div class="text-button-pair">
+                            <span>¿No tenés cuenta?</span>
+                            <button (click)="Registrarse()" mat-button>
+                                {{ 'FORMLOGIN.btnRegistro'| translate }}
+                            </button>
+                        </div>
+                        <div class="text-button-pair">
+                            <span>¿Olvidaste tu contraseña?</span>
+                            <button (click)="Recuperar()" mat-button>
+                                {{ 'FORMLOGIN.btnRecuperar'| translate }}
+                            </button>
+                        </div>
+                      </div>
                 </mat-card-footer>
             </form>
         </mat-card>

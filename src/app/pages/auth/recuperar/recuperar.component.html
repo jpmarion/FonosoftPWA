@@ -1,0 +1,26 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{ 'FORMRECUPERAR.matDialogTitle' | translate }}</mat-card-title>
+    </mat-card-header>
+    <div mat-dialog-content>
+        <mat-card-content>
+            <form [formGroup]="RecuperarForm" class="form" autocomplete="off">
+                <div class="contenedor">
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{ 'FORMRECUPERAR.lblEmail' | translate }}</mat-label>
+                        <input type="text" matInput formControlName="email" id="email"
+                            placeholder="{{ 'FORMREGISTRO.inpEmailPlaceHolder' | translate }}">
+                        <mat-icon matSuffix>email</mat-icon>
+                        <mat-error *ngIf="emailInvalid">{{ getMensajeErrorEmail() | translate }}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div mat-dialog-actions align="end">
+                    <button mat-raised-button color="primary" (click)="recuperar()" [class.spinner]="estadoBoton"
+                        [disabled]="RecuperarForm.invalid">{{ 'FORMRECUPERAR.btnRecuperar' | translate }}</button>
+                    <button mat-button mat-dialog-close cdkFocusInitial>{{ 'FORMREGISTRO.btnSalir' | translate
+                        }}</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </div>
+</mat-card>

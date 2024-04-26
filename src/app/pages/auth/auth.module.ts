@@ -16,12 +16,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { ConfirmarRegistroComponent } from './confirmar-registro/confirmar-registro.component';
+import { RecuperarComponent } from './recuperar/recuperar.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegistroComponent,
-    ConfirmarRegistroComponent
+    ConfirmarRegistroComponent,
+    RecuperarComponent
   ],
   imports: [
     CommonModule,

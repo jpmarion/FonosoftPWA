@@ -26,7 +26,9 @@ export class ConfigDialogComponent implements OnInit {
     private dialogOk: MatDialog,
     public dialogRefConfig: MatDialogRef<ConfigDialogComponent>,
     private authServices: AuthService
-  ) { }
+  ) {
+    this.dialogRefConfig.disableClose = true;
+  }
 
   ngOnInit(): void { }
 
@@ -36,9 +38,9 @@ export class ConfigDialogComponent implements OnInit {
     this.authServices.CambiarContraseniaUsuairo(this.requestCambiarContrasenia)
       .subscribe({
         next: (resultado) => {
-          const dialogOk = this.dialogOk.open(OkDialogComponent,{
-            data:{titulo:'FORMCONFIGURACION.TituloOkDialog', mensaje:'FORMCONFIGURACION.MsjOkDialog'}
-          }).afterClosed().subscribe((result=>{
+          const dialogOk = this.dialogOk.open(OkDialogComponent, {
+            data: { titulo: 'FORMCONFIGURACION.TituloOkDialog', mensaje: 'FORMCONFIGURACION.MsjOkDialog' }
+          }).afterClosed().subscribe((result => {
             this.dialogRefConfig.close();
           }))
         },

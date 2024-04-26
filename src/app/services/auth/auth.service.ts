@@ -27,6 +27,7 @@ export class AuthService {
   private cambiarContraseniaUrl = this.apiUrl + '/api/Auth/ModificarContrasenia';
   private registrarUrl = this.apiUrl + '/api/Auth/Registrar';
   private confirmarUsuarioUrl = this.apiUrl + '/api/Auth/Confirmar';
+  private resetContraseniaUrl = this.apiUrl + '/api/Auth/ResetContrasenia';
 
   constructor(
     private http: HttpClient,
@@ -92,7 +93,22 @@ export class AuthService {
       Id: id
     });
 
-    return this.http.post(this.confirmarUsuarioUrl, request, httpOptions)
+    return this.http.post(this.resetContraseniaUrl, request, httpOptions)
+      .pipe(
+        map((response: any) => {
+          return response;
+        }),
+        catchError(error =>
+          this.handleError(error)
+        ));
+  }
+
+  ResetContrasenia(email: string) {
+    const request = JSON.stringify({
+      email: email
+    });
+
+    return this.http.post(this.resetContraseniaUrl, request, httpOptions)
       .pipe(
         map((response: any) => {
           return response;

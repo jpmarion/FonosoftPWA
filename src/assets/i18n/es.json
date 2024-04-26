@@ -10,6 +10,7 @@
         "errorPasswordRequired": "Debe ingresar un valor",
         "errorPasswordMinLength": "La contraseña debe contener a los sumo 8 caracteres",
         "btnRegistro": "Registrarse",
+        "btnRecuperar": "Recuperar",
         "TituloErrorDialog": "Iniciar sesión"
     },
     "FORMCONFIGURACION": {
@@ -19,7 +20,8 @@
         "TituloErrorDialog": "Modifcar contraseña",
         "btnModificar": "Modificar",
         "TituloOkDialog": "Modifcar contraseña",
-        "MsjOkDialog": "Contraseña modificada con exito"
+        "MsjOkDialog": "Contraseña modificada con exito",
+        "btnSalir": "Salir"
     },
     "FORMREGISTRO": {
         "matDialogTitle": "Registro",
@@ -157,5 +159,13 @@
         "btnConfirmar": "Confirmar",
         "matCardContentMensaje": "Para completar tu registro, por favor confirmar presione le botón.",
         "matCardFoote": "Si no solicitaste este registro, por favor ignora este mensaje."
+    },
+    "FORMRECUPERAR": {
+        "matDialogTitle": "Recuperar contraseña",
+        "lblEmail": "Email",
+        "btnRecuperar": "Recuperar",
+        "btnSalir": "Salir",
+        "TituloOkDialog": "Reset contraseña",
+        "MsjOkDialog": "Contraseña reseteada"
     }
 }

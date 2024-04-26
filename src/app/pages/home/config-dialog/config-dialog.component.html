@@ -16,7 +16,10 @@
           <mat-error *ngIf="passwordInvalid">{{ getMensajeErrorPassword() | translate }}</mat-error>
         </mat-form-field>
         <div mat-dialog-actions align="end">
-          <button mat-raised-button color="primary" [disabled]="cambiarPass.invalid" (click)="cambiarContrasenia()">{{ 'FORMCONFIGURACION.btnModificar' | translate }}</button>
+          <button mat-raised-button color="primary" [disabled]="cambiarPass.invalid" (click)="cambiarContrasenia()">{{
+            'FORMCONFIGURACION.btnModificar' | translate }}</button>
+            <button mat-button mat-dialog-close cdkFocusInitial>{{ 'FORMCONFIGURACION.btnSalir' | translate
+            }}</button>
         </div>
       </form>
     </mat-card-content>
