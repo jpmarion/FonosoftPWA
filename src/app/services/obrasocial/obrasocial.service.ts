@@ -78,7 +78,7 @@ export class ObrasocialService {
   ModificarObraSocial(requestModificarObraSocial: RequestModifcarObraSocial): Observable<any> {
     const requestJson = JSON.stringify({
       idObraSocial: requestModificarObraSocial.id,
-      nombreObraSocial: requestModificarObraSocial.descripcion
+      nombre: requestModificarObraSocial.descripcion
     });
 
     return this.http.put<any>(this.obraSocialUrl, requestJson, httpOptions)
