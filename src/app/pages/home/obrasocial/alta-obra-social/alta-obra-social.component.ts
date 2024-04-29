@@ -8,6 +8,8 @@ import { RequestAddObraSocial } from 'src/app/services/obrasocial/request-add-ob
 import { Error } from 'src/app/model/error';
 import { DateRange, MAT_DATE_RANGE_SELECTION_STRATEGY, MatDateRangeSelectionStrategy } from '@angular/material/datepicker';
 import { DateAdapter } from '@angular/material/core';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { Usuario } from 'src/app/model/usuario.model';
 
 @Injectable()
 export class FiveDayRangeSelectionStrategy<D> implements MatDateRangeSelectionStrategy<D> {
@@ -53,9 +55,11 @@ export class AltaObraSocialComponent implements OnInit {
 
   private request = new RequestAddObraSocial;
   private _tipoDocumentoServices = inject(ObrasocialService);
+  private _authServices = inject(AuthService);
   private dialogOk = inject(MatDialog);
   private dialogError = inject(MatDialog);
   private renderer = inject(Renderer2);
+  private _usuario!: Usuario;
 
   constructor(public dialogRef: MatDialogRef<AltaObraSocialComponent>) { }
 
@@ -65,6 +69,8 @@ export class AltaObraSocialComponent implements OnInit {
   }
 
   Ejecutar(): void {
+    this._usuario = this._authServices.getCurrentUser();
+    this.request.idUsuario = this._usuario.idUsuario!;
     this.request.descripcion = this._obraSocialForm.get('descripcionObraSocialForm')?.value!;
     this._tipoDocumentoServices.AgregarObraSocial(this.request)
       .subscribe({

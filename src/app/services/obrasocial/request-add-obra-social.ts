@@ -1,5 +1,4 @@
 export class RequestAddObraSocial {
+    idUsuario!: BigInteger;
     descripcion!: string;
-    fechaInicio!: Date;
-    fechaFin!: Date;
 }

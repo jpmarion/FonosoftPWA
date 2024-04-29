@@ -61,7 +61,8 @@ export class ObrasocialService {
 
   AgregarObraSocial(requestAddObraSocial: RequestAddObraSocial): Observable<any> {
     const requestJson = JSON.stringify({
-      nombre: requestAddObraSocial.descripcion,
+      idUsuario: requestAddObraSocial.idUsuario,
+      nombreObraSocial: requestAddObraSocial.descripcion,
     });
 
     return this.http.post<any>(this.obraSocialUrl, requestJson, httpOptions)
