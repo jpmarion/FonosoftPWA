@@ -24,7 +24,7 @@ export class ObrasocialService {
   private obraSocialUrl = this.apiUrl + '/api/ObraSocial';
   private todasUrl = this.obraSocialUrl + '/Todas';
   private habilitadosURl = this.obraSocialUrl + '/GetHabilitados';
-  private cambiarEstadoObraSocialUrl = this.obraSocialUrl + '/CambiarEstado?IdObraSocial=';
+  private cambiarEstadoObraSocialUrl = this.obraSocialUrl + '/CambiarEstado/';
 
   constructor(
     private http: HttpClient
