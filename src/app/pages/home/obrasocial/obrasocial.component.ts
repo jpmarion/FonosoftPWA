@@ -11,6 +11,8 @@ import { ModificarObraSocialComponent } from './modificar-obra-social/modificar-
 import { VerObraSocialComponent } from './ver-obra-social/ver-obra-social.component';
 import { CambiarEstadoObraSocialComponent } from './cambiar-estado-obra-social/cambiar-estado-obra-social.component';
 import { IObraSocial } from 'src/app/services/obrasocial/iobra-social';
+import { Usuario } from 'src/app/model/usuario.model';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 export interface DialogData {
   idObraSocial: number;
@@ -27,10 +29,13 @@ export class ObrasocialComponent implements OnInit, AfterViewInit {
 
   selection = new SelectionModel<IObraSocial>(true, []);
 
-  private obraSocialServices = inject(ObrasocialService);
+  private _obraSocialServices = inject(ObrasocialService);
+  private _authServices = inject(AuthService);
   private _liveAnnouncer = inject(LiveAnnouncer);
-  private dialogAltaObraSocial = inject(MatDialog);
-  private dialogModificarObraSocial = inject(MatDialog);
+  private _dialogAltaObraSocial = inject(MatDialog);
+  private _dialogModificarObraSocial = inject(MatDialog);
+
+  private _usuario!:Usuario;
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -60,14 +65,15 @@ export class ObrasocialComponent implements OnInit, AfterViewInit {
   }
 
   CargarObrasSociales() {
-    this.obraSocialServices.BuscarObrasSociales()
+    this._usuario = this._authServices.getCurrentUser();
+    this._obraSocialServices.BuscarObrasSociales(this._usuario.idUsuario!)
       .subscribe((res) => {
         this.dataSource.data = res;
       });
   }
 
   abrirAltaObraSocial(): void {
-    const dialogRef = this.dialogAltaObraSocial.open(AltaObraSocialComponent, {
+    const dialogRef = this._dialogAltaObraSocial.open(AltaObraSocialComponent, {
       width: '30%',
     }).afterClosed().subscribe(result => {
       if (result != '') {
@@ -78,7 +84,7 @@ export class ObrasocialComponent implements OnInit, AfterViewInit {
   }
 
   abrirVerObraSocial(id: number): void {
-    const dialogRef = this.dialogModificarObraSocial.open(VerObraSocialComponent, {
+    const dialogRef = this._dialogModificarObraSocial.open(VerObraSocialComponent, {
       width: '30%',
       data: {
         idObraSocial: id
@@ -92,7 +98,7 @@ export class ObrasocialComponent implements OnInit, AfterViewInit {
   }
 
   abrirModificarObraSocial(id: number): void {
-    const dialogRef = this.dialogModificarObraSocial.open(ModificarObraSocialComponent, {
+    const dialogRef = this._dialogModificarObraSocial.open(ModificarObraSocialComponent, {
       width: '30%',
       data: {
         idObraSocial: id
@@ -106,7 +112,7 @@ export class ObrasocialComponent implements OnInit, AfterViewInit {
   }
 
   abrirCambiarEstadoObraSocial(id: number): void {
-    const dialogRef = this.dialogModificarObraSocial.open(CambiarEstadoObraSocialComponent, {
+    const dialogRef = this._dialogModificarObraSocial.open(CambiarEstadoObraSocialComponent, {
       width: '30%',
       data: {
         idObraSocial: id

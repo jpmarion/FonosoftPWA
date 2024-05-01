@@ -22,6 +22,7 @@ export class ObrasocialService {
 
   private apiUrl = environment.apiUrlEntidades;
   private obraSocialUrl = this.apiUrl + '/api/ObraSocial';
+  private todasUrl = this.obraSocialUrl + '/Todas';
   private habilitadosURl = this.obraSocialUrl + '/GetHabilitados';
   private cambiarEstadoObraSocialUrl = this.obraSocialUrl + '/CambiarEstado?IdObraSocial=';
 
@@ -29,8 +30,8 @@ export class ObrasocialService {
     private http: HttpClient
   ) { }
 
-  BuscarObrasSociales(): Observable<any> {
-    return this.http.get<IObraSocial[]>(this.obraSocialUrl).pipe(
+  BuscarObrasSociales(idUsuario: BigInteger): Observable<any> {
+    return this.http.get<IObraSocial[]>(this.todasUrl + '/' + idUsuario).pipe(
       map((response: IObraSocial[]) => {
         return response;
       }),
