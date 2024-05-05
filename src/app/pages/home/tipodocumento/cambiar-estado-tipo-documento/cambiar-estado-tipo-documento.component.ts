@@ -7,6 +7,7 @@ import { Error } from 'src/app/model/error';
 import { ErrorDialogComponent } from 'src/app/pages/dialog/error-dialog/error-dialog.component';
 import { OkDialogComponent } from 'src/app/pages/dialog/ok-dialog/ok-dialog.component';
 import { DialogData } from '../tipodocumento.component';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class CambiarEstadoTipoDocumentoComponent implements OnInit {
   public _boton: string = "";
 
   private _tipoDocumentoServices = inject(TipodocumentoService);
+  private _authService = inject(AuthService);
   private dialogOk = inject(MatDialog);
   private dialogError = inject(MatDialog);
   private renderer = inject(Renderer2);
@@ -43,7 +45,8 @@ export class CambiarEstadoTipoDocumentoComponent implements OnInit {
   }
 
   VerTipoDocumento() {
-    this._tipoDocumentoServices.BuscarTipoDocumento(this._idTipoDocumento)
+    var usuario = this._authService.getCurrentUser();
+    this._tipoDocumentoServices.BuscarTipoDocumento(this._idTipoDocumento, usuario.idUsuario!)
       .subscribe({
         next: (result) => {
           this._tipoDocumento = result;
@@ -60,20 +63,22 @@ export class CambiarEstadoTipoDocumentoComponent implements OnInit {
   }
 
   Ejecutar(): void {
-    this._tipoDocumentoServices.CambiarEstadoTipoDocumento(this._idTipoDocumento)
-    .subscribe({
-      next: (resultado) => {
-        this.openOkDialog('FORMTIPODOCUMENTO.TituloOkDialogCambiarEstado', 'FORMTIPODOCUMENTO.MsjOkDialogCambiarEstado');
-        this.dialogRef.close();
-      },
-      error: (e) => {
-        if (e instanceof Error) {
-          this.MensajeError(e);
-        } else {
-          console.error('Un error a ocurrido', e.error.message);
+    var usuario = this._authService.getCurrentUser();
+
+    this._tipoDocumentoServices.CambiarEstadoTipoDocumento(this._idTipoDocumento, usuario.idUsuario!)
+      .subscribe({
+        next: (resultado) => {
+          this.openOkDialog('FORMTIPODOCUMENTO.TituloOkDialogCambiarEstado', 'FORMTIPODOCUMENTO.MsjOkDialogCambiarEstado');
+          this.dialogRef.close();
+        },
+        error: (e) => {
+          if (e instanceof Error) {
+            this.MensajeError(e);
+          } else {
+            console.error('Un error a ocurrido', e.error.message);
+          }
         }
-      }
-    });
+      });
   }
 
   openOkDialog(titulo: string, mensaje: string) {

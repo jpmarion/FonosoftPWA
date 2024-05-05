@@ -8,6 +8,7 @@ import { ErrorDialogComponent } from 'src/app/pages/dialog/error-dialog/error-di
 import { RequestPutTipoDocumento } from 'src/app/services/tipodocumento/request-put-tipo-documento';
 import { OkDialogComponent } from 'src/app/pages/dialog/ok-dialog/ok-dialog.component';
 import { DialogData } from '../tipodocumento.component';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-modificar-tipo-documento',
@@ -26,6 +27,7 @@ export class ModificarTipoDocumentoComponent implements OnInit {
   private _request = new RequestPutTipoDocumento();
 
   private _tipoDocumentoServices = inject(TipodocumentoService);
+  private _authServices = inject(AuthService);
   private dialogOk = inject(MatDialog);
   private dialogError = inject(MatDialog);
   private renderer = inject(Renderer2);
@@ -42,7 +44,8 @@ export class ModificarTipoDocumentoComponent implements OnInit {
   }
 
   VerTipoDocumento() {
-    this._tipoDocumentoServices.BuscarTipoDocumento(this._idTipoDocumento)
+    var usuario = this._authServices.getCurrentUser();
+    this._tipoDocumentoServices.BuscarTipoDocumento(this._idTipoDocumento, usuario.idUsuario!)
       .subscribe({
         next: (result) => {
           this._tipoDocumento = result;
@@ -61,6 +64,10 @@ export class ModificarTipoDocumentoComponent implements OnInit {
   Ejecutar(): void {
     this._request.id = this._idTipoDocumento;
     this._request.descripcion = this._tipoDocumentoForm.get('descripcionTipoDocumentoForm')?.value ?? '';
+
+    var usuario = this._authServices.getCurrentUser();
+    this._request.idUsuario = usuario.idUsuario;
+
     this._tipoDocumentoServices.ModificarTipoDocumento(this._request)
       .subscribe({
         next: (resultado) => {

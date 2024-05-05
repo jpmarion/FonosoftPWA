@@ -22,15 +22,16 @@ const httpOptions = {
 export class TipodocumentoService {
   private apiUrl = environment.apiUrlEntidades;
   private tipoDocumentoUrl = this.apiUrl + '/api/TipoDocumento';
+  private tipoDocumentoTodosUrl = this.tipoDocumentoUrl + '/Todas/';
   private tiposDocumentosHabilitados = this.tipoDocumentoUrl + '/GetHabilitados';
-  private CambiarEstadoTipoDocumentoUrl = this.tipoDocumentoUrl + '/CambiarEstado?IdTipoDocumento=';
+  private CambiarEstadoTipoDocumentoUrl = this.tipoDocumentoUrl + '/ModificarEstado/';
 
   constructor(
     private http: HttpClient
   ) { }
 
-  BuscarTodosLosTipoDocumento(): Observable<any> {
-    return this.http.get<Tipodocumento[]>(this.tipoDocumentoUrl).pipe(
+  BuscarTodosLosTipoDocumento(idUsuario: BigInteger): Observable<any> {
+    return this.http.get<Tipodocumento[]>(this.tipoDocumentoTodosUrl + idUsuario).pipe(
       map((response: Tipodocumento[]) => {
         return response;
       }),
@@ -70,6 +71,7 @@ export class TipodocumentoService {
   ModificarTipoDocumento(request: RequestPutTipoDocumento): Observable<any> {
     const requestJson = JSON.stringify({
       idTipoDocumento: request.id,
+      idUsuario: request.idUsuario,
       nombreTipoDocumento: request.descripcion
     });
 
@@ -84,16 +86,16 @@ export class TipodocumentoService {
       );
   }
 
-  BuscarTipoDocumento(idTipoDocumento: number): Observable<ITipoDocumento> {
-    return this.http.get<ITipoDocumento>(this.tipoDocumentoUrl + '/' + idTipoDocumento)
+  BuscarTipoDocumento(idTipoDocumento: number, idUsuario: BigInteger): Observable<ITipoDocumento> {
+    return this.http.get<ITipoDocumento>(this.tipoDocumentoUrl + '/' + idTipoDocumento + '/' + idUsuario)
       .pipe(
         catchError(error =>
           this.handleError(error))
       );
   }
 
-  CambiarEstadoTipoDocumento(idTipoDocumento: number): Observable<any> {
-    return this.http.put<any>(this.CambiarEstadoTipoDocumentoUrl + idTipoDocumento, httpOptions)
+  CambiarEstadoTipoDocumento(idTipoDocumento: number, idUsuario: BigInteger): Observable<any> {
+    return this.http.put<any>(this.CambiarEstadoTipoDocumentoUrl + idTipoDocumento + '/' + idUsuario, httpOptions)
       .pipe(
         map((response: any) => {
           return response;

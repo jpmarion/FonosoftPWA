@@ -6,6 +6,7 @@ import { ITipoDocumento } from 'src/app/services/tipodocumento/itipo-documento';
 import { Error } from 'src/app/model/error';
 import { ErrorDialogComponent } from 'src/app/pages/dialog/error-dialog/error-dialog.component';
 import { DialogData } from '../tipodocumento.component';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class VerTipoDocumentoComponent implements OnInit {
   });
   _Titulo: string = "";
   private _tipoDocumentoServices = inject(TipodocumentoService);
+  private _authServices = inject(AuthService);
   private _idTipoDocumento!: number;
   private _tipoDocumento!: ITipoDocumento;
 
@@ -36,7 +38,8 @@ export class VerTipoDocumentoComponent implements OnInit {
   }
 
   VerTipoDocumento() {
-    this._tipoDocumentoServices.BuscarTipoDocumento(this._idTipoDocumento)
+    var usuario = this._authServices.getCurrentUser();
+    this._tipoDocumentoServices.BuscarTipoDocumento(this._idTipoDocumento, usuario.idUsuario!)
       .subscribe({
         next: (result) => {
           this._tipoDocumento = result;

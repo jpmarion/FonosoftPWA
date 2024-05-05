@@ -11,6 +11,8 @@ import { VerTipoDocumentoComponent } from './ver-tipo-documento/ver-tipo-documen
 import { ModificarTipoDocumentoComponent } from './modificar-tipo-documento/modificar-tipo-documento.component';
 import { CambiarEstadoTipoDocumentoComponent } from './cambiar-estado-tipo-documento/cambiar-estado-tipo-documento.component';
 import { AltaTipoDocumentoComponent } from './alta-tipo-documento/alta-tipo-documento.component';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { Usuario } from 'src/app/model/usuario.model';
 
 export interface DialogData {
   idTipoDocumento: number;
@@ -31,6 +33,7 @@ export class TipodocumentoComponent implements OnInit, AfterViewInit {
 
   constructor(
     private tipoDocumentoServices: TipodocumentoService,
+    private authServices: AuthService,
     private dialogAltaTipoDocumento: MatDialog,
     private dialogVerTipoDocumento: MatDialog,
     private dialogModificarTipoDocumento: MatDialog,
@@ -103,7 +106,8 @@ export class TipodocumentoComponent implements OnInit, AfterViewInit {
   }
 
   cargarTiposDocumentos(): void {
-    this.tipoDocumentoServices.BuscarTodosLosTipoDocumento()
+    var usuario =  this.authServices.getCurrentUser();
+    this.tipoDocumentoServices.BuscarTodosLosTipoDocumento(usuario.idUsuario!)
       .subscribe((res) => {
         this.dataSource.data = res;
       })
