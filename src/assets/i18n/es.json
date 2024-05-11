@@ -167,5 +167,10 @@
         "btnSalir": "Salir",
         "TituloOkDialog": "Reset contraseña",
         "MsjOkDialog": "Contraseña reseteada"
+    },
+    "MEDICO":{
+        "title":"Médico",
+        "Id": "No.",
+        "descripcion":"Apellido y nombre"
     }
 }

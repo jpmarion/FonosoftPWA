@@ -6,6 +6,7 @@ import { DialogData } from '../obrasocial.component';
 import { Error } from 'src/app/model/error';
 import { ErrorDialogComponent } from 'src/app/pages/dialog/error-dialog/error-dialog.component';
 import { IObraSocial } from 'src/app/services/obrasocial/iobra-social';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-ver-obra-social',
@@ -20,6 +21,7 @@ export class VerObraSocialComponent implements OnInit {
 
   titulo: string = "";
   private obraSocialServices = inject(ObrasocialService);
+  private authServices = inject(AuthService);
   private idObraSocial!: number;
   private obraSocial!: IObraSocial;
 
@@ -36,7 +38,8 @@ export class VerObraSocialComponent implements OnInit {
   }
 
   verObraSocial(): void {
-    this.obraSocialServices.BuscarObraSocial(this.idObraSocial)
+    var usuario = this.authServices.getCurrentUser();
+    this.obraSocialServices.BuscarObraSocial(this.idObraSocial, usuario.idUsuario!)
       .subscribe({
         next: (result) => {
           this.obraSocial = result;
@@ -51,7 +54,7 @@ export class VerObraSocialComponent implements OnInit {
         }
       });
   }
-  
+
   private MensajeError(error: Error) {
     switch (error.NroError) {
       case "Error7":

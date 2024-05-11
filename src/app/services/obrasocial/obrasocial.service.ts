@@ -52,8 +52,8 @@ export class ObrasocialService {
     );
   }
 
-  BuscarObraSocial(idObraSocial: number): Observable<IObraSocial> {
-    return this.http.get<IObraSocial>(this.obraSocialUrl + '/' + idObraSocial)
+  BuscarObraSocial(idObraSocial: number, idUsuario: BigInteger): Observable<IObraSocial> {
+    return this.http.get<IObraSocial>(this.obraSocialUrl + '/' + idObraSocial + '/' + idUsuario)
       .pipe(
         catchError(error =>
           this.handleError(error))
@@ -80,6 +80,7 @@ export class ObrasocialService {
   ModificarObraSocial(requestModificarObraSocial: RequestModifcarObraSocial): Observable<any> {
     const requestJson = JSON.stringify({
       idObraSocial: requestModificarObraSocial.id,
+      idUsuario: requestModificarObraSocial.idUsuario,
       nombre: requestModificarObraSocial.descripcion
     });
 
@@ -94,8 +95,8 @@ export class ObrasocialService {
       );
   }
 
-  CambiarEstadoObraSocial(idObraSocial: number): Observable<any> {
-    return this.http.put<any>(this.cambiarEstadoObraSocialUrl + idObraSocial, httpOptions)
+  CambiarEstadoObraSocial(idObraSocial: number, idUsuario: BigInteger): Observable<any> {
+    return this.http.put<any>(this.cambiarEstadoObraSocialUrl + idObraSocial + '/' + idUsuario, httpOptions)
       .pipe(
         map((response: any) => {
           return response;

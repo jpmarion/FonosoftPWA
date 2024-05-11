@@ -8,6 +8,8 @@ import { OkDialogComponent } from 'src/app/pages/dialog/ok-dialog/ok-dialog.comp
 import { ErrorDialogComponent } from 'src/app/pages/dialog/error-dialog/error-dialog.component';
 import { RequestModifcarObraSocial } from 'src/app/services/obrasocial/request-modifcar-obra-social';
 import { IObraSocial } from 'src/app/services/obrasocial/iobra-social';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { Usuario } from 'src/app/model/usuario.model';
 
 @Component({
   selector: 'app-modificar-obra-social',
@@ -22,11 +24,13 @@ export class ModificarObraSocialComponent implements OnInit {
 
   private _idObraSocial!: number;
   private _obraSocial!: IObraSocial;
+  private _usuario!: Usuario;
   private request = new RequestModifcarObraSocial();
   public _Titulo: string = "";
   public _boton: string = "";
 
   private obraSocialServices = inject(ObrasocialService);
+  private authServices = inject(AuthService);
   private dialogOk = inject(MatDialog);
   private dialogError = inject(MatDialog);
   private renderer = inject(Renderer2);
@@ -36,6 +40,7 @@ export class ModificarObraSocialComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
     this._idObraSocial = data.idObraSocial;
+    this._usuario = this.authServices.getCurrentUser();
   }
 
   ngOnInit(): void {
@@ -46,6 +51,7 @@ export class ModificarObraSocialComponent implements OnInit {
 
   Ejecutar(): void {
     this.request.id = this._idObraSocial;
+    this.request.idUsuario = this._usuario.idUsuario!;
     this.request.descripcion = this.obraSocialForm.get('descripcionObraSocialForm')?.value ?? '';
     this.obraSocialServices.ModificarObraSocial(this.request)
       .subscribe({
@@ -64,7 +70,7 @@ export class ModificarObraSocialComponent implements OnInit {
   }
 
   verObraSocial(): void {
-    this.obraSocialServices.BuscarObraSocial(this._idObraSocial)
+    this.obraSocialServices.BuscarObraSocial(this._idObraSocial, this._usuario.idUsuario!)
       .subscribe({
         next: (result) => {
           this._obraSocial = result;

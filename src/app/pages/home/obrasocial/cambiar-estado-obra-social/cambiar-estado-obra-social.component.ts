@@ -7,6 +7,7 @@ import { Error } from 'src/app/model/error';
 import { ErrorDialogComponent } from 'src/app/pages/dialog/error-dialog/error-dialog.component';
 import { OkDialogComponent } from 'src/app/pages/dialog/ok-dialog/ok-dialog.component';
 import { IObraSocial } from 'src/app/services/obrasocial/iobra-social';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-cambiar-estado-obra-social',
@@ -26,6 +27,7 @@ export class CambiarEstadoObraSocialComponent implements OnInit {
   private obraSocial!: IObraSocial;
 
   private obraSocialServices = inject(ObrasocialService);
+  private authServices = inject(AuthService);
   private dialogOk = inject(MatDialog);
   private dialogError = inject(MatDialog);
   private renderer = inject(Renderer2);
@@ -43,7 +45,8 @@ export class CambiarEstadoObraSocialComponent implements OnInit {
   }
 
   Ejecutar(): void {
-    this.obraSocialServices.CambiarEstadoObraSocial(this.idObraSocial)
+    var usuario = this.authServices.getCurrentUser();
+    this.obraSocialServices.CambiarEstadoObraSocial(this.idObraSocial, usuario.idUsuario!)
       .subscribe({
         next: (resultado) => {
           this.openOkDialog('FORMOBRASOCIAL.TituloOkDialogCambiarEstado', 'FORMOBRASOCIAL.MsjOkDialogCambiarEstado');
@@ -60,7 +63,8 @@ export class CambiarEstadoObraSocialComponent implements OnInit {
   }
 
   verObraSocial(): void {
-    this.obraSocialServices.BuscarObraSocial(this.idObraSocial)
+    var usuario = this.authServices.getCurrentUser()
+    this.obraSocialServices.BuscarObraSocial(this.idObraSocial, usuario.idUsuario!)
       .subscribe({
         next: (result) => {
           this.obraSocial = result;
